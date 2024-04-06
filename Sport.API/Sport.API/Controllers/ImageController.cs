@@ -17,8 +17,22 @@ namespace Sport.API.Controllers;
 public class ImageController(SportDbContext context, UserManager<User> userManager, IMapper mapper) : Controller
 {
     /// <summary>
+    /// Всі зображення.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> Images()
+    {
+        var user = await userManager.GetUserAsync(User);
+        var images = user?.Images;
+        var imagesMapping = mapper.Map<List<ImageDto>>(images);
+        
+        return Ok(imagesMapping);
+    }
+    
+    /// <summary>
     /// Добавлення картонок.
-    ///
+    /// </summary>
     /// <remarks>
     ///
     /// [
@@ -26,7 +40,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     ///         "link": "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
     ///     },
     ///     {
-    ///         "link": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"
+    ///         "link": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg"
     ///     },
     ///     {
     ///         "link": "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"
@@ -34,7 +48,6 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     /// ]
     /// 
     /// </remarks>
-    /// </summary>
     /// <param name="images">Картинки.</param>
     /// <returns></returns>
     [HttpPost]
@@ -89,5 +102,31 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     private bool IsValidImage(string link)
     {
         return Regex.IsMatch(link, @"\.jpg|\.jpeg|\.svg|\.png", RegexOptions.IgnoreCase);
+    }
+
+    /// <summary>
+    /// Видалення зображення.
+    /// </summary>
+    /// <param name="link">Адрес зображення.</param>
+    /// <returns></returns>
+    [HttpDelete]
+    public async Task<IActionResult> Delete(string link)
+    {
+        if (string.IsNullOrWhiteSpace(link))
+        {
+            return BadRequest();
+        }
+
+        var image = await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
+
+        if (image == null)
+        {
+            return BadRequest();
+        }
+
+        context.Images.Remove(image);
+        await context.SaveChangesAsync();
+
+        return Ok(StatusCodes.Status200OK);
     }
 }
