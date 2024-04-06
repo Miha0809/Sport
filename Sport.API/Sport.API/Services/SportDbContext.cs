@@ -6,5 +6,5 @@ namespace Sport.API.Services;
 
 public class SportDbContext(DbContextOptions<SportDbContext> options) : IdentityDbContext<User>(options)
 {
-    public DbSet<Image>? Images { get; set; }
+    public required DbSet<Image> Images { get; set; }
 }
