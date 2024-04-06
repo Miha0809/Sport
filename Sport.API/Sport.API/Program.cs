@@ -17,12 +17,13 @@ builder.Services.AddDbContext<SportDbContext>(options =>
 });
 builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
-        
         options.SignIn.RequireConfirmedAccount = false;
         options.User.RequireUniqueEmail = true;
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SportDbContext>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 
 
 var app = builder.Build();
