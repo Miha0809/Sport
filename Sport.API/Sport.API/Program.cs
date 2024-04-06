@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Sport.API.Models;
 using Sport.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<SportDbContext>(options =>
     options.UseLazyLoadingProxies()
         .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host Localhos
 });
-builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
+builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
         
         options.SignIn.RequireConfirmedAccount = false;
@@ -33,13 +34,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapIdentityApi<User>();
 app.UseHttpsRedirection();
 
 app.MapControllers();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
 
 app.Run();
