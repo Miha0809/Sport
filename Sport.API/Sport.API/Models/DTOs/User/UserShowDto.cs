@@ -8,6 +8,8 @@ public class UserShowDto
     public required string Email { get; set; }
     public required bool EmailConfirmed { get; set; }
     
+    public List<ImageDto>? Images { get; set; }
+    
     public string? PhoneNumber { get; set; }
     public required bool PhoneNumberConfirmed { get; set; }
     public required bool TwoFactorEnabled { get; set; }
