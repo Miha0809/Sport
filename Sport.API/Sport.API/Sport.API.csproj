@@ -9,13 +9,13 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <WarningsAsErrors>;NU1605;SYSLIB0011</WarningsAsErrors>
-      <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
       <WarningLevel>8</WarningLevel>
       <DocumentationFile>bin\Debug\net8.0\Sport.API.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
       <DocumentationFile>bin\Release\net8.0\Sport.API.xml</DocumentationFile>
     </PropertyGroup>
 

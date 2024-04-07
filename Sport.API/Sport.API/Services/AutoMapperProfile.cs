@@ -5,8 +5,14 @@ using Sport.API.Models.DTOs.User;
 
 namespace Sport.API.Services;
 
+/// <summary>
+/// Профіль маппера об'єктів.
+/// </summary>
 public class AutoMapperProfile : Profile
 {
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
     public AutoMapperProfile()
     {
         CreateMap<User, UserShowDto>();

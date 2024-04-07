@@ -11,6 +11,12 @@ using Sport.API.Services;
 
 namespace Sport.API.Controllers;
 
+/// <summary>
+/// Контроллер зображень.
+/// </summary>
+/// <param name="context">Контекст БД.</param>
+/// <param name="userManager">Медеджер користувача.</param>
+/// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
