@@ -7,6 +7,18 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <WarningsAsErrors>;NU1605;SYSLIB0011</WarningsAsErrors>
+      <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+      <WarningLevel>8</WarningLevel>
+      <DocumentationFile>bin\Debug\net8.0\Sport.API.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+      <DocumentationFile>bin\Release\net8.0\Sport.API.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
