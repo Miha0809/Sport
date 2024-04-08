@@ -12,7 +12,7 @@ using Sport.API.Services;
 namespace Sport.API.Controllers;
 
 /// <summary>
-/// Контроллер зображень.
+/// Контроллер зображень для профілю.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
 /// <param name="userManager">Медеджер користувача.</param>
@@ -37,7 +37,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     }
     
     /// <summary>
-    /// Добавлення картонок.
+    /// Добавлення зображення.
     /// </summary>
     /// <remarks>
     ///

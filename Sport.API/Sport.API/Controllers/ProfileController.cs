@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models;
@@ -52,5 +53,43 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
         await context.SaveChangesAsync();
 
         return Ok(mapper.Map<UserShowDto>(user));
+    }
+
+    /// <summary>
+    /// Видалити профіль.
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete]
+    public async Task<IActionResult> Delete()
+    {
+        var user = await userManager.GetUserAsync(User);
+
+        if (user is null)
+        {
+            return BadRequest();
+        }
+
+        if (user.Images is not null)
+        {
+            context.Images.RemoveRange(user.Images);
+        }
+        
+        context.Users.Remove(user);
+        await context.SaveChangesAsync();
+
+        
+        return RedirectToAction("Logout");
+    }
+
+    /// <summary>
+    /// Визід із профіля.
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("/logout")]
+    public IActionResult Logout()
+    {
+        HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+
+        return Ok(StatusCodes.Status200OK);
     }
 }
