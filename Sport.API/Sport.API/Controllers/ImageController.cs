@@ -72,7 +72,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
         await context.Images.AddRangeAsync(mapper.Map<List<ImageDto>, List<Image>>(validImages));
         await context.SaveChangesAsync();
         
-        return Ok(mapper.Map<UserShowDto>(user));
+        return Ok(mapper.Map<UserPrivateShowDto>(user));
     }
     
     /// <summary>
@@ -134,5 +134,24 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
         await context.SaveChangesAsync();
 
         return Ok(StatusCodes.Status200OK);
+    }
+
+    /// <summary>
+    /// Всі зображення користувача.
+    /// </summary>
+    /// <param name="email">Електронна пошта користувача.</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [HttpGet("{email}")]
+    public async Task<IActionResult> Pictures(string email)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(_user => _user.Email!.Equals(email));
+
+        if (user is null || user.Images is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(mapper.Map<List<Image>, List<ImageDto>>(user.Images));
     }
 }
