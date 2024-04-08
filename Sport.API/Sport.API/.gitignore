@@ -2,7 +2,10 @@
 riderModule.iml
 /_ReSharper.Caches/
 Migrations/
-../.idea/
+
+../.idea
+../.idea/*
+
 bin/*
 obj/*
 bin/
