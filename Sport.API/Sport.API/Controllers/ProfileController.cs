@@ -28,7 +28,7 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
     public async Task<IActionResult> Profile()
     {
         var user = await userManager.GetUserAsync(User);
-        return Ok(mapper.Map<UserShowDto>(user));
+        return Ok(mapper.Map<UserPrivateShowDto>(user));
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
         context.Users.Update(user);
         await context.SaveChangesAsync();
 
-        return Ok(mapper.Map<UserShowDto>(user));
+        return Ok(mapper.Map<UserPrivateShowDto>(user));
     }
 
     /// <summary>
