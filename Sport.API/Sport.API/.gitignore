@@ -3,12 +3,20 @@ riderModule.iml
 /_ReSharper.Caches/
 Migrations/
 
-../.idea
-../.idea/*
+../.idea/
+../.idea/.idea.Sport.API/.idea/workspace.xml
+../.idea/.idea.Sport.API/.idea/tasks.xml
+../.idea/.idea.Sport.API/.idea/dictionaries
+../.idea/.idea.Sport.API/.idea/vcs.xml
+../.idea/.idea.Sport.API/.idea/jsLibraryMappings.xml
 
-bin/*
-obj/*
+# Sensitive or high-churn files:
+../.idea/.idea.Sport.API/.idea/dataSources.ids
+../.idea/.idea.Sport.API/.idea/dataSources.xml
+../.idea/.idea.Sport.API/.idea/dataSources.local.xml
+../.idea/.idea.Sport.API/.idea/sqlDataSources.xml
+../.idea/.idea.Sport.API/.idea/dynamic.xml
+../.idea/.idea.Sport.API/.idea/uiDesigner.xml
+
 bin/
 obj/
-bin
-obj
