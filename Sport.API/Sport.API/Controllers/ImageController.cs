@@ -72,7 +72,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
         await context.Images.AddRangeAsync(mapper.Map<List<ImageDto>, List<Image>>(validImages));
         await context.SaveChangesAsync();
         
-        return Ok(mapper.Map<UserShowDto>(user));
+        return Ok(mapper.Map<UserShowPrivateDto>(user));
     }
     
     /// <summary>

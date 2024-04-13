@@ -15,7 +15,8 @@ public class AutoMapperProfile : Profile
     /// </summary>
     public AutoMapperProfile()
     {
-        CreateMap<User, UserShowDto>();
+        CreateMap<User, UserShowPublicDto>();
+        CreateMap<User, UserShowPrivateDto>();
         CreateMap<User, UserUpdateDto>();
         CreateMap<Image, ImageDto>();
         CreateMap<ImageDto, Image>();
