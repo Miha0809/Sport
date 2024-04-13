@@ -36,7 +36,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SportDbContext>(options =>
 {
     options.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host Localhost
+        .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host (wajimew118@kravify.com) Localhost
 });
 builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
