@@ -8,5 +8,6 @@ public class SearchByFullNameRequset
     /// <summary>
     /// Ім'я та/або прізвище.
     /// </summary>
+    /// <example>Mark Full</example>
     public required string FullName { get; set; }
 }
