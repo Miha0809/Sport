@@ -1,4 +1,4 @@
-namespace Sport.API.Models.DTOs.Requests;
+namespace Sport.API.Models.DTOs.Requests.Search;
 
 /// <summary>
 /// Пошук по електронній пошті.

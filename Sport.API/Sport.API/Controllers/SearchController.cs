@@ -1,11 +1,10 @@
 using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
-using Sport.API.Models.DTOs.Requests;
+using Sport.API.Models.DTOs.Requests.Search;
 using Sport.API.Models.DTOs.User;
 using Sport.API.Services;
 
@@ -27,7 +26,8 @@ public class SearchController(SportDbContext context, IMapper mapper) : Controll
     [HttpPost("email")]
     public async Task<IActionResult> Email([FromBody] SearchByEmailRequest request)
     {
-        var user = await context.Users.FirstOrDefaultAsync(user => user.Email!.Equals(request.Email));
+        var user = await context.Users.FirstOrDefaultAsync(user =>
+            IsValidEmail(request.Email) && user.Email!.Equals(request.Email));
         return Ok(mapper.Map<UserShowPublicDto>(user));
     }
 
@@ -37,7 +37,7 @@ public class SearchController(SportDbContext context, IMapper mapper) : Controll
     /// <param name="request">Ім'я та/або прізвище</param>
     /// <returns></returns>
     [HttpPost("full_name")]
-    public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequset request)
+    public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequest request)
     {
         var users = await context.Users.ToListAsync();
         return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
