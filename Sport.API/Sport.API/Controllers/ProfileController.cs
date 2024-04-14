@@ -82,7 +82,7 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
     }
 
     /// <summary>
-    /// Визід із профіля.
+    /// Вихід із профіля.
     /// </summary>
     /// <returns></returns>
     [HttpDelete("/logout")]
