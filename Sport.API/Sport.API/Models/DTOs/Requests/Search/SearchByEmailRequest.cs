@@ -8,5 +8,6 @@ public class SearchByEmailRequest
     /// <summary>
     /// Електронна пошта.
     /// </summary>
+    /// <example>admin@gmail.com</example>
     public required string Email { get; set; }
 }

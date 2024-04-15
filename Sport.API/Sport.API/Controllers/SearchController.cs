@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
@@ -16,7 +17,7 @@ namespace Sport.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class SearchController(SportDbContext context, IMapper mapper) : Controller
+public class SearchController(SportDbContext context, UserManager<User> userManager, IMapper mapper) : Controller
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
@@ -39,7 +40,16 @@ public class SearchController(SportDbContext context, IMapper mapper) : Controll
     [HttpPost("full_name")]
     public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequest request)
     {
-        var users = await context.Users.ToListAsync();
+        var user = await userManager.GetUserAsync(User);
+        var fullName = request.FullName.Split(' ');
+        var firstName = fullName[0];
+        var lastName = fullName[1];
+        var users = await context.Users.Where(_user =>
+            _user.FirstName!.Equals(firstName) &&
+            _user.LastName!.Equals(lastName) &&
+            !_user.Email!.Equals(user!.Email))
+            .ToListAsync();
+        
         return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
     }
 
