@@ -1,4 +1,4 @@
-namespace Sport.API.Models.DTOs.Requests;
+namespace Sport.API.Models.DTOs.Requests.Search;
 
 /// <summary>
 /// Пошук по електронній пошті.
@@ -8,5 +8,6 @@ public class SearchByEmailRequest
     /// <summary>
     /// Електронна пошта.
     /// </summary>
+    /// <example>admin@gmail.com</example>
     public required string Email { get; set; }
 }
