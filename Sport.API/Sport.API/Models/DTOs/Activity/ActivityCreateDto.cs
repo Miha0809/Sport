@@ -1,19 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using Sport.API.Models.DTOs.User;
 using Sport.API.Models.Enums;
 
-namespace Sport.API.Models;
+namespace Sport.API.Models.DTOs.Activity;
 
 /// <summary>
-/// Активність.
+/// 
 /// </summary>
-public class Activity
+public class ActivityCreateDto
 {
-    /// <summary>
-    /// Ідентифікатор.
-    /// </summary>
-    [Key]
-    public int Id { get; set; }
- 
     /// <summary>
     /// Початок активності.
     /// </summary>
@@ -35,6 +30,11 @@ public class Activity
     public double Speed { get; set; }
     
     /// <summary>
+    /// Тривалість активності.
+    /// </summary>
+    public double Time { get; set; }
+    
+    /// <summary>
     /// Тип активності.
     /// </summary>
     [EnumDataType(typeof(ActivityType))]
@@ -43,7 +43,7 @@ public class Activity
     /// <summary>
     /// Автор активності.
     /// </summary>
-    public virtual User? User { get; set; }
+    public virtual UserShowPublicDto? User { get; set; }
     
-    // TODO: Locations, comments, ?likes
+    // TODO: likes
 }
