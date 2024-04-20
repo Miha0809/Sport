@@ -1,4 +1,4 @@
-namespace Sport.API.Models.DTOs.User;
+namespace Sport.API.Models.DTOs.Response.User;
 
 /// <summary>
 /// DTO користувача для приватної оглядання.

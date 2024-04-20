@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Sport.API.Models.DTOs.User;
+using Sport.API.Models.DTOs.Response.User;
 using Sport.API.Models.Enums;
 
-namespace Sport.API.Models.DTOs.Activity;
+namespace Sport.API.Models.DTOs.Response.Activity;
 
 /// <summary>
 /// 
