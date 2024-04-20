@@ -12,18 +12,18 @@ namespace Sport.API.Repositories;
 public class ProfileRepository(SportDbContext context) : IProfileRepository
 {
     /// <summary>
-    /// 
+    /// Видалити профіль.
     /// </summary>
-    /// <returns></returns>
+    /// <param name="user">Користувач.</param>
     public void Delete(User user)
     {
         context.Users.Remove(user!);
     }
     
     /// <summary>
-    /// 
+    /// Редагування профілю.
     /// </summary>
-    /// <param name="user"></param>
+    /// <param name="user">Відредагований користувач.</param>
     /// <returns></returns>
     public void Update(User user)
     {
@@ -31,7 +31,7 @@ public class ProfileRepository(SportDbContext context) : IProfileRepository
     }
 
     /// <summary>
-    /// 
+    /// Зберегти зміни.
     /// </summary>
     public void Save()
     {
