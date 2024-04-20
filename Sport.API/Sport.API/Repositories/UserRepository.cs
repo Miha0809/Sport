@@ -1,41 +1,22 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
 using Sport.API.Services;
 
 namespace Sport.API.Repositories;
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="context"></param>
-public class ProfileRepository(SportDbContext context) : IProfileRepository
+public class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
 {
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="claimsPrincipal"></param>
     /// <returns></returns>
-    public void Delete(User user)
+    public async Task<User?> GetUserAsync(ClaimsPrincipal claimsPrincipal)
     {
-        context.Users.Remove(user!);
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
-    public void Update(User user)
-    {
-        context.Users.Update(user);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Save()
-    {
-        context.SaveChanges();
+        var user = await userManager.GetUserAsync(claimsPrincipal);
+        return user;
     }
     
     private bool _disposed;
