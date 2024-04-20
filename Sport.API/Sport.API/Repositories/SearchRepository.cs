@@ -15,7 +15,7 @@ public sealed class SearchRepository(SportDbContext context) : ISearchRepository
     /// Користувач з відповідною електронною поштою.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns></returns>
+    /// <returns>Користувач з відповідною електронною поштою.</returns>
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Email!.Equals(email));

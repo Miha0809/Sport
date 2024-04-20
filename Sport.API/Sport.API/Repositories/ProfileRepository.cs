@@ -24,7 +24,6 @@ public sealed class ProfileRepository(SportDbContext context) : IProfileReposito
     /// Редагування профілю.
     /// </summary>
     /// <param name="user">Відредагований користувач.</param>
-    /// <returns></returns>
     public void Update(User user)
     {
         context.Users.Update(user);
@@ -33,7 +32,7 @@ public sealed class ProfileRepository(SportDbContext context) : IProfileReposito
     /// <summary>
     /// Зберегти зміни.
     /// </summary>
-    public void Save()
+    public void Save() 
     {
         context.SaveChanges();
     }

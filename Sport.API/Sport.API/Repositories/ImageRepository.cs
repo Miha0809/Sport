@@ -15,6 +15,7 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     /// Зображення по посиланню.
     /// </summary>
     /// <param name="link">Посилання.</param>
+    /// <returns>Зображення по посиланню.</returns>
     public async Task<Image?> GetByLink(string link)
     {
         return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));

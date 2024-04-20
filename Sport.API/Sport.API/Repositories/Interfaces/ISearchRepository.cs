@@ -11,7 +11,6 @@ public interface ISearchRepository : IDisposable
     /// Користувач по електронній пошті.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns></returns>
     Task<User?> GetUserByEmailAsync(string email);
     
     /// <summary>
@@ -20,6 +19,5 @@ public interface ISearchRepository : IDisposable
     /// <param name="firstName">Ім'я.</param>
     /// <param name="lastName">Фамілія.</param>
     /// <param name="currentUserEmail">Електронна пошта поточного користувача.</param>
-    /// <returns>Користувачів із однаковими іменами та/або фаміліями.</returns>
     Task<List<User>> FindUsersByFullNameAsync(string firstName, string lastName, string currentUserEmail);
 }

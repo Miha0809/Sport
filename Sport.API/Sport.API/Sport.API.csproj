@@ -54,7 +54,6 @@
 
     <ItemGroup>
       <Folder Include="Models\DTOs\Response\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>

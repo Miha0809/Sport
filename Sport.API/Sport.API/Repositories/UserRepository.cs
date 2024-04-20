@@ -15,10 +15,10 @@ namespace Sport.API.Repositories;
 public sealed class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
 {
     /// <summary>
-    /// 
+    /// Авторизований користувач.
     /// </summary>
-    /// <param name="claimsPrincipal"></param>
-    /// <returns></returns>
+    /// <param name="claimsPrincipal">Інформація про авторизованого користувача.</param>
+    /// <returns>Авторизований користувач</returns>
     public async Task<User?> GetUserAsync(ClaimsPrincipal claimsPrincipal)
     {
         var user = await userManager.GetUserAsync(claimsPrincipal);
