@@ -6,6 +6,11 @@ using Sport.API.Services;
 
 namespace Sport.API.Repositories;
 
+/// <summary>
+/// Репозіторі користувача.
+/// </summary>
+/// <param name="context">Контекст БД.</param>
+/// <param name="userManager">Медеджер користувача.</param>
 public class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
 {
     /// <summary>

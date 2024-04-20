@@ -10,7 +10,9 @@ namespace Sport.API.Controllers;
 /// <summary>
 /// Контроллер власного профілю.
 /// </summary>
-/// <param name="profileRepository">Репозіторі профілю користувача.</param>
+/// <param name="profileRepository">Репозіторі профіля користувача.</param>
+/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
+/// <param name="context">Контекст БД.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]

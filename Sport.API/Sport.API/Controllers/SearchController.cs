@@ -13,6 +13,9 @@ namespace Sport.API.Controllers;
 /// <summary>
 /// Контроллер для пошуку користувачів.
 /// </summary>
+/// <param name="searchRepository">Репозіторі пошуку користувачів.</param>
+/// <param name="userManager">Медеджер користувача.</param>
+/// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
