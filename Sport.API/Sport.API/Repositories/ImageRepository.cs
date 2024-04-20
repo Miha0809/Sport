@@ -9,7 +9,7 @@ namespace Sport.API.Repositories;
 /// Репозіторі зображень.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public class ImageRepository(SportDbContext context) : IImageRepository
+public sealed class ImageRepository(SportDbContext context) : IImageRepository
 {
     /// <summary>
     /// Зображення по посиланню.
@@ -61,7 +61,7 @@ public class ImageRepository(SportDbContext context) : IImageRepository
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

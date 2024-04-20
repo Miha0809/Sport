@@ -8,7 +8,6 @@ using Sport.API.Repositories.Interfaces;
 
 namespace Sport.API.Controllers;
 
-
 /// <summary>
 /// Контроллер активності.
 /// </summary>

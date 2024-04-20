@@ -4,6 +4,7 @@ using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
 using Sport.API.Contexts;
 
+
 namespace Sport.API.Repositories;
 
 /// <summary>
@@ -11,7 +12,7 @@ namespace Sport.API.Repositories;
 /// </summary>
 /// <param name="context">Контекст БД.</param>
 /// <param name="userManager">Медеджер користувача.</param>
-public class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
+public sealed class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
 {
     /// <summary>
     /// 
@@ -30,7 +31,7 @@ public class UserRepository(SportDbContext context, UserManager<User> userManage
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

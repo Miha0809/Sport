@@ -19,6 +19,7 @@ namespace Sport.API.Controllers;
 [Route("api/[controller]")]
 [Authorize]
 public class SearchController(ISearchRepository searchRepository, IUserRepository userRepository, IMapper mapper) : Controller
+
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
