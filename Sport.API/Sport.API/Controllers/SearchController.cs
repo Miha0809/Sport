@@ -3,21 +3,23 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Models.DTOs.Requests.Search;
-using Sport.API.Models.DTOs.User;
-using Sport.API.Services;
+using Sport.API.Models.DTOs.Response.User;
+using Sport.API.Repositories.Interfaces;
 
 namespace Sport.API.Controllers;
 
 /// <summary>
 /// Контроллер для пошуку користувачів.
 /// </summary>
+/// <param name="searchRepository">Репозіторі пошуку користувачів.</param>
+/// <param name="userManager">Медеджер користувача.</param>
+/// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class SearchController(SportDbContext context, UserManager<User> userManager, IMapper mapper) : Controller
+public class SearchController(ISearchRepository searchRepository, UserManager<User> userManager, IMapper mapper) : Controller
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
@@ -27,13 +29,17 @@ public class SearchController(SportDbContext context, UserManager<User> userMana
     [HttpPost("email")]
     public async Task<IActionResult> Email([FromBody] SearchByEmailRequest request)
     {
-        var user = await context.Users.FirstOrDefaultAsync(user =>
-            IsValidEmail(request.Email) && user.Email!.Equals(request.Email));
+        if (!IsValidEmail(request.Email))
+        {
+            return BadRequest("Email is not valid");
+        }
+        
+        var user = await searchRepository.GetUserByEmailAsync(request.Email);
         return Ok(mapper.Map<UserShowPublicDto>(user));
     }
 
     /// <summary>
-    /// Пошук користувача по електронній пошті.
+    /// Пошук користувача по імені та/або фамілії.
     /// </summary>
     /// <param name="request">Ім'я та/або прізвище</param>
     /// <returns></returns>
@@ -44,11 +50,7 @@ public class SearchController(SportDbContext context, UserManager<User> userMana
         var fullName = request.FullName.Split(' ');
         var firstName = fullName[0];
         var lastName = fullName[1];
-        var users = await context.Users.Where(_user =>
-            _user.FirstName!.Equals(firstName) &&
-            _user.LastName!.Equals(lastName) &&
-            !_user.Email!.Equals(user!.Email))
-            .ToListAsync();
+        var users = await searchRepository.FindUsersByFullNameAsync(firstName, lastName, user!.Email!);
         
         return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
     }

@@ -1,9 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Sport.API.Models;
-using Sport.API.Models.DTOs.User;
+using Sport.API.Models.DTOs.Response.User;
+using Sport.API.Repositories.Interfaces;
 using Sport.API.Services;
 
 namespace Sport.API.Controllers;
@@ -11,13 +10,14 @@ namespace Sport.API.Controllers;
 /// <summary>
 /// Контроллер власного профілю.
 /// </summary>
+/// <param name="profileRepository">Репозіторі профіля користувача.</param>
+/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
 /// <param name="context">Контекст БД.</param>
-/// <param name="userManager">Медеджер користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ProfileController(SportDbContext context, UserManager<User> userManager, IMapper mapper) : Controller
+public class ProfileController(IProfileRepository profileRepository, IUserRepository userRepository, SportDbContext context, IMapper mapper) : Controller
 {
     /// <summary>
     /// Інформація про профіль.
@@ -26,7 +26,8 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
+        
         return Ok(mapper.Map<UserShowPrivateDto>(user));
     }
 
@@ -38,7 +39,7 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] UserUpdateDto? userDto)
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
 
         if (user is null || userDto is null )
         {
@@ -48,9 +49,9 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
         user.FirstName = userDto.FirstName;
         user.LastName = userDto.LastName;
         
-        context.Users.Update(user);
-        await context.SaveChangesAsync();
-
+        profileRepository.Update(user);
+        profileRepository.Save();
+        
         return Ok(mapper.Map<UserShowPrivateDto>(user));
     }
 
@@ -59,9 +60,9 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
     /// </summary>
     /// <returns></returns>
     [HttpDelete]
-    public async Task<IActionResult> Delete()
+    public async Task<IActionResult> Remove()
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
 
         if (user is null)
         {
@@ -73,9 +74,8 @@ public class ProfileController(SportDbContext context, UserManager<User> userMan
             context.Images.RemoveRange(user.Images);
         }
         
-        context.Users.Remove(user);
-        await context.SaveChangesAsync();
-
+        profileRepository.Remove(user);
+        profileRepository.Save();
         
         return RedirectToAction("Logout");
     }

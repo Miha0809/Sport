@@ -11,7 +11,12 @@ namespace Sport.API.Services;
 public class SportDbContext(DbContextOptions<SportDbContext> options) : IdentityDbContext<User>(options)
 {
     /// <summary>
-    /// Таблиця зображень у БД.
+    /// Таблиця зображень.
     /// </summary>
     public required DbSet<Image> Images { get; set; }
+    
+    /// <summary>
+    /// Таблиця активностей.
+    /// </summary>
+    public required DbSet<Activity> Activities { get; set; }
 }

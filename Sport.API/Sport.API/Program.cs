@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Sport.API.Models;
+using Sport.API.Profiles;
+using Sport.API.Repositories;
+using Sport.API.Repositories.Interfaces;
 using Sport.API.Services;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -36,7 +39,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SportDbContext>(options =>
 {
     options.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Host")); // Host (wajimew118@kravify.com) Localhost
+        .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host (wajimew118@kravify.com) Localhost
 });
 builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
@@ -46,6 +49,11 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SportDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 var app = builder.Build();
 
