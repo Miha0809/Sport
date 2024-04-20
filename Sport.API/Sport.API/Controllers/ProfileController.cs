@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models.DTOs.Response.User;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
 
 namespace Sport.API.Controllers;
 
@@ -11,13 +10,13 @@ namespace Sport.API.Controllers;
 /// Контроллер власного профілю.
 /// </summary>
 /// <param name="profileRepository">Репозіторі профіля користувача.</param>
+/// <param name="imageRepository">Репозіторі зображень.</param>
 /// <param name="userRepository">Репозіторі авторизованого користувача.</param>
-/// <param name="context">Контекст БД.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ProfileController(IProfileRepository profileRepository, IUserRepository userRepository, SportDbContext context, IMapper mapper) : Controller
+public class ProfileController(IProfileRepository profileRepository, IImageRepository imageRepository, IUserRepository userRepository, IMapper mapper) : Controller
 {
     /// <summary>
     /// Інформація про профіль.
@@ -41,7 +40,7 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
     {
         var user = await userRepository.GetUserAsync(User);
 
-        if (user is null || userDto is null )
+        if (user is null || userDto is null)
         {
             return BadRequest();
         }
@@ -71,7 +70,7 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
 
         if (user.Images is not null)
         {
-            context.Images.RemoveRange(user.Images);
+            imageRepository.RemoveRange(user.Images);
         }
         
         profileRepository.Remove(user);

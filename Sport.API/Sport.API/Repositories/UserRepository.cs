@@ -2,7 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
 
 namespace Sport.API.Repositories;
 

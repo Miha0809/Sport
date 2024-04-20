@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
 
 namespace Sport.API.Repositories;
 
@@ -10,6 +11,15 @@ namespace Sport.API.Repositories;
 /// <param name="context">Контекст БД.</param>
 public class ImageRepository(SportDbContext context) : IImageRepository
 {
+    /// <summary>
+    /// Зображення по посиланню.
+    /// </summary>
+    /// <param name="link">Посилання.</param>
+    public async Task<Image?> GetByLink(string link)
+    {
+        return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
+    }
+
     /// <summary>
     /// Змінити данні зображення.
     /// </summary>
@@ -26,6 +36,15 @@ public class ImageRepository(SportDbContext context) : IImageRepository
     public void Remove(Image image)
     {
         context.Images.Remove(image);
+    }
+
+    /// <summary>
+    /// Видалення зображень.
+    /// </summary>
+    /// <param name="images">Зображення.</param>
+    public void RemoveRange(IList<Image> images)
+    {
+        context.Images.RemoveRange(images);
     }
 
     /// <summary>

@@ -1,14 +1,11 @@
 using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Models.DTOs;
 using Sport.API.Models.DTOs.Response.User;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
 
 namespace Sport.API.Controllers;
 
@@ -18,12 +15,11 @@ namespace Sport.API.Controllers;
 /// </summary>
 /// <param name="userRepository"></param>
 /// <param name="imageRepository"></param>
-/// <param name="context">Контекст БД.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ImageController(IUserRepository userRepository, IImageRepository imageRepository, SportDbContext context, IMapper mapper) : Controller
+public class ImageController(IUserRepository userRepository, IImageRepository imageRepository, IMapper mapper) : Controller
 {
     /// <summary>
     /// Всі зображення.
@@ -86,7 +82,7 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] ImageDto imageDto, string oldLink)
     {
-        var oldImage = await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(oldLink));
+        var oldImage = await imageRepository.GetByLink(oldLink);
         var isValidLink = IsValidImage(imageDto.Link);
         
         if (oldImage is null || !isValidLink)
@@ -125,7 +121,7 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
             return BadRequest();
         }
 
-        var image = await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
+        var image = await imageRepository.GetByLink(link);
 
         if (image == null)
         {
@@ -136,19 +132,5 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
         imageRepository.Save();
 
         return Ok(StatusCodes.Status200OK);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [HttpDelete("all")]
-    public void RemoveAll()
-    {
-        foreach (var image in context.Images.ToList())
-        {
-            context.Images.Remove(image);
-        }
-
-        context.SaveChanges();
     }
 }

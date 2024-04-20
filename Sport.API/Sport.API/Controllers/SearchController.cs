@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models;
 using Sport.API.Models.DTOs.Requests.Search;
@@ -14,12 +13,12 @@ namespace Sport.API.Controllers;
 /// Контроллер для пошуку користувачів.
 /// </summary>
 /// <param name="searchRepository">Репозіторі пошуку користувачів.</param>
-/// <param name="userManager">Медеджер користувача.</param>
+/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class SearchController(ISearchRepository searchRepository, UserManager<User> userManager, IMapper mapper) : Controller
+public class SearchController(ISearchRepository searchRepository, IUserRepository userRepository, IMapper mapper) : Controller
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
@@ -46,7 +45,7 @@ public class SearchController(ISearchRepository searchRepository, UserManager<Us
     [HttpPost("full_name")]
     public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequest request)
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
         var fullName = request.FullName.Split(' ');
         var firstName = fullName[0];
         var lastName = fullName[1];

@@ -6,7 +6,7 @@ using Sport.API.Models;
 using Sport.API.Profiles;
 using Sport.API.Repositories;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
