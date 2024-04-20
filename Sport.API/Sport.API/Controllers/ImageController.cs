@@ -6,21 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Models.DTOs;
-using Sport.API.Models.DTOs.User;
+using Sport.API.Models.DTOs.Response.User;
+using Sport.API.Repositories.Interfaces;
 using Sport.API.Services;
 
 namespace Sport.API.Controllers;
 
+
 /// <summary>
 /// Контроллер зображень для профілю.
 /// </summary>
+/// <param name="userRepository"></param>
+/// <param name="imageRepository"></param>
 /// <param name="context">Контекст БД.</param>
-/// <param name="userManager">Медеджер користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ImageController(SportDbContext context, UserManager<User> userManager, IMapper mapper) : Controller
+public class ImageController(IUserRepository userRepository, IImageRepository imageRepository, SportDbContext context, IMapper mapper) : Controller
 {
     /// <summary>
     /// Всі зображення.
@@ -29,7 +32,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     [HttpGet]
     public async Task<IActionResult> Images()
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
         var images = user?.Images;
         var imagesMapping = mapper.Map<List<ImageDto>>(images);
         
@@ -40,18 +43,19 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     /// Добавлення зображення.
     /// </summary>
     /// <remarks>
-    ///
-    /// [
-    ///     {
-    ///         "link": "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
-    ///     },
-    ///     {
-    ///         "link": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg"
-    ///     },
-    ///     {
-    ///         "link": "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"
-    ///     }
-    /// ]
+    /// Simple example:
+    /// 
+    ///     [
+    ///         {
+    ///             "link": "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
+    ///         },
+    ///         {
+    ///             "link": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg"
+    ///         },
+    ///         {
+    ///             "link": "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"
+    ///         }
+    ///     ]
     /// 
     /// </remarks>
     /// <param name="images">Картинки.</param>
@@ -59,7 +63,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] List<ImageDto> images)
     {
-        var user = await userManager.GetUserAsync(User);
+        var user = await userRepository.GetUserAsync(User);
         var validImages = images.Where(image => IsValidImage(image.Link)).ToList();
         
         if (user is null || validImages.Count == 0)
@@ -68,10 +72,8 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
         }
 
         user.Images!.AddRange(mapper.Map<List<ImageDto>, List<Image>>(validImages));
-
-        await context.Images.AddRangeAsync(mapper.Map<List<ImageDto>, List<Image>>(validImages));
-        await context.SaveChangesAsync();
-        
+        imageRepository.Save();
+                
         return Ok(mapper.Map<UserShowPrivateDto>(user));
     }
     
@@ -94,9 +96,9 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
 
         oldImage.Link = imageDto.Link;
         
-        context.Images.Update(oldImage);
-        await context.SaveChangesAsync();
-        
+        imageRepository.Update(oldImage);
+        imageRepository.Save();
+                
         return Ok(oldImage);
     }
 
@@ -116,7 +118,7 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
     /// <param name="link">Адрес зображення.</param>
     /// <returns></returns>
     [HttpDelete]
-    public async Task<IActionResult> Delete(string link)
+    public async Task<IActionResult> Remove(string link)
     {
         if (string.IsNullOrWhiteSpace(link))
         {
@@ -130,9 +132,23 @@ public class ImageController(SportDbContext context, UserManager<User> userManag
             return BadRequest();
         }
 
-        context.Images.Remove(image);
-        await context.SaveChangesAsync();
+        imageRepository.Remove(image);
+        imageRepository.Save();
 
         return Ok(StatusCodes.Status200OK);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [HttpDelete("all")]
+    public void RemoveAll()
+    {
+        foreach (var image in context.Images.ToList())
+        {
+            context.Images.Remove(image);
+        }
+
+        context.SaveChanges();
     }
 }

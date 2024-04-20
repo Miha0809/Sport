@@ -39,7 +39,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SportDbContext>(options =>
 {
     options.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Host")); // Host (wajimew118@kravify.com) Localhost
+        .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host (wajimew118@kravify.com) Localhost
 });
 builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
@@ -53,6 +53,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 var app = builder.Build();
 

@@ -60,7 +60,7 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
     /// </summary>
     /// <returns></returns>
     [HttpDelete]
-    public async Task<IActionResult> Delete()
+    public async Task<IActionResult> Remove()
     {
         var user = await userRepository.GetUserAsync(User);
 
@@ -74,7 +74,7 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
             context.Images.RemoveRange(user.Images);
         }
         
-        profileRepository.Delete(user);
+        profileRepository.Remove(user);
         profileRepository.Save();
         
         return RedirectToAction("Logout");

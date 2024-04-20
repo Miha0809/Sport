@@ -3,7 +3,7 @@ using Sport.API.Models;
 namespace Sport.API.Repositories.Interfaces;
 
 /// <summary>
-/// Репозіторі для пошуку.
+/// Інтерфейс репозіторія пошуку.
 /// </summary>
 public interface ISearchRepository : IDisposable
 {

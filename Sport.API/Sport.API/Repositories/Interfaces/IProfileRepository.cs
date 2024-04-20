@@ -3,7 +3,7 @@ using Sport.API.Models;
 namespace Sport.API.Repositories.Interfaces;
 
 /// <summary>
-/// Репозіторі для профілю користувача.
+/// Інтерфейс репозіторія профілю користувача.
 /// </summary>
 public interface IProfileRepository : IDisposable
 {
@@ -11,7 +11,7 @@ public interface IProfileRepository : IDisposable
     /// Видалити профіль.
     /// </summary>
     /// <param name="user">Користувач.</param>
-    void Delete(User user);
+    void Remove(User user);
 
     /// <summary>
     /// Редагування профілю.

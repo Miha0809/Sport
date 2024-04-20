@@ -6,7 +6,7 @@ using Sport.API.Services;
 namespace Sport.API.Repositories;
 
 /// <summary>
-/// Репозіторі для пошуку.
+/// Репозіторі пошуку.
 /// </summary>
 public class SearchRepository(SportDbContext context) : ISearchRepository
 {

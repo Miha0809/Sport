@@ -5,32 +5,31 @@ using Sport.API.Services;
 namespace Sport.API.Repositories;
 
 /// <summary>
-/// Репозіторі профілю користувача.
+/// Репозіторі зображень.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public class ProfileRepository(SportDbContext context) : IProfileRepository
+public class ImageRepository(SportDbContext context) : IImageRepository
 {
     /// <summary>
-    /// Видалити профіль.
+    /// Змінити данні зображення.
     /// </summary>
-    /// <param name="user">Користувач.</param>
-    public void Remove(User user)
+    /// <param name="image">Новий об'єкт зображення.</param>
+    public void Update(Image image)
     {
-        context.Users.Remove(user!);
-    }
-    
-    /// <summary>
-    /// Редагування профілю.
-    /// </summary>
-    /// <param name="user">Відредагований користувач.</param>
-    /// <returns></returns>
-    public void Update(User user)
-    {
-        context.Users.Update(user);
+        context.Images.Update(image);
     }
 
     /// <summary>
-    /// Зберегти зміни.
+    /// Видалення зображення.
+    /// </summary>
+    /// <param name="image">Зображення.</param>
+    public void Remove(Image image)
+    {
+        context.Images.Remove(image);
+    }
+
+    /// <summary>
+    /// Збереження змін.
     /// </summary>
     public void Save()
     {
@@ -38,7 +37,7 @@ public class ProfileRepository(SportDbContext context) : IProfileRepository
     }
     
     private bool _disposed;
-
+    
     /// <summary>
     /// Звільнення ресурсів.
     /// </summary>
