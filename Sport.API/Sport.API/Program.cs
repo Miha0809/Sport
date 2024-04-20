@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Sport.API.Models;
+using Sport.API.Profiles;
+using Sport.API.Repositories;
+using Sport.API.Repositories.Interfaces;
 using Sport.API.Services;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -46,6 +49,8 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SportDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 
 var app = builder.Build();
 

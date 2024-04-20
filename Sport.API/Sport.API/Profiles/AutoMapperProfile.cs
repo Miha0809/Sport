@@ -1,8 +1,8 @@
 using AutoMapper;
 using Sport.API.Models;
 using Sport.API.Models.DTOs;
-using Sport.API.Models.DTOs.Activity;
-using Sport.API.Models.DTOs.User;
+using Sport.API.Models.DTOs.Response.Activity;
+using Sport.API.Models.DTOs.Response.User;
 
 namespace Sport.API.Services;
 
