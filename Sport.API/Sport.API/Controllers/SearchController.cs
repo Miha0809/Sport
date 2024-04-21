@@ -24,7 +24,6 @@ public class SearchController(ISearchService searchService, IUserRepository user
     /// Пошук користувача по електронній пошті.
     /// </summary>
     /// <param name="request">Електронна пошта.</param>
-    /// <returns></returns>
     [HttpPost("email")]
     public async Task<IActionResult> Email([FromBody] SearchByEmailRequest request)
     {
@@ -44,7 +43,6 @@ public class SearchController(ISearchService searchService, IUserRepository user
     /// Пошук користувача по імені та/або фамілії.
     /// </summary>
     /// <param name="request">Ім'я та/або прізвище</param>
-    /// <returns></returns>
     [HttpPost("full_name")]
     public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequest request)
     {
@@ -60,6 +58,4 @@ public class SearchController(ISearchService searchService, IUserRepository user
             throw;
         }
     }
-
-
 }

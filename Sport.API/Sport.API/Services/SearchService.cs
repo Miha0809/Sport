@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Sport.API.Models;
 using Sport.API.Models.DTOs.Requests.Search;
@@ -14,11 +13,10 @@ namespace Sport.API.Services;
 public class SearchService(ISearchRepository searchRepository) : ISearchService
 {
     /// <summary>
-    /// 
+    /// Пошук користувача по електронній пошті.
     /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <param name="request">Запит</param>
+    /// <returns>Користувач з відповідною унікальною електронною поштою.</returns>
     public async Task<User?> Email(SearchByEmailRequest request)
     {
         if (!IsValidEmail(request.Email))
