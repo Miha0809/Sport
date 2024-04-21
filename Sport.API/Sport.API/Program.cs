@@ -59,6 +59,7 @@ builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 // Services
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 var app = builder.Build();
 
