@@ -17,7 +17,7 @@ public class SearchService(ISearchRepository searchRepository) : ISearchService
     /// </summary>
     /// <param name="request">Запит</param>
     /// <returns>Користувач з відповідною унікальною електронною поштою.</returns>
-    public async Task<User?> Email(SearchByEmailRequest request)
+    public async Task<User?> EmailAsync(SearchByEmailRequest request)
     {
         if (!IsValidEmail(request.Email))
         {
@@ -40,7 +40,7 @@ public class SearchService(ISearchRepository searchRepository) : ISearchService
     /// <param name="user">Інформація про авторизованого користувача.</param>
     /// <param name="request">Запит</param>
     /// <returns>Всі користувачі з відповідним іменим та/або фамілею.</returns>
-    public async Task<List<User>> FullName(User user, SearchByFullNameRequest request)
+    public async Task<List<User>> FullNameAsync(User user, SearchByFullNameRequest request)
     {
         var fullName = request.FullName.Split(' ');
         var firstName = fullName[0];

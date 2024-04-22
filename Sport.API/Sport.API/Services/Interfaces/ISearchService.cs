@@ -13,12 +13,12 @@ public interface ISearchService
     /// Пошук користувача по електронній пошті.
     /// </summary>
     /// <param name="request">Запит пошуку.</param>
-    Task<User?> Email(SearchByEmailRequest request);
+    Task<User?> EmailAsync(SearchByEmailRequest request);
     
     /// <summary>
     /// Пошук користувача по імені та/або фамілії.
     /// </summary>
     /// <param name="user">Авторизований користувач.</param>
     /// <param name="request">Запит пошуку.</param>
-    Task<List<User>> FullName(User user, SearchByFullNameRequest request);
+    Task<List<User>> FullNameAsync(User user, SearchByFullNameRequest request);
 }

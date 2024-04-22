@@ -29,7 +29,7 @@ public class SearchController(ISearchService searchService, IUserRepository user
     {
         try
         {
-            var user = await searchService.Email(request);
+            var user = await searchService.EmailAsync(request);
             return Ok(mapper.Map<UserShowPublicDto>(user));
         }
         catch (Exception e)
@@ -49,7 +49,7 @@ public class SearchController(ISearchService searchService, IUserRepository user
         try
         {
             var user = await userRepository.GetUserAsync(User);
-            var users = await searchService.FullName(user!, request);
+            var users = await searchService.FullNameAsync(user!, request);
             return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
         }
         catch (Exception e)
