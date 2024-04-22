@@ -1,20 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
+
 
 namespace Sport.API.Repositories;
 
 /// <summary>
 /// Репозіторі пошуку.
 /// </summary>
-public class SearchRepository(SportDbContext context) : ISearchRepository
+public sealed class SearchRepository(SportDbContext context) : ISearchRepository
 {
     /// <summary>
     /// Користувач з відповідною електронною поштою.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns></returns>
+    /// <returns>Користувач з відповідною електронною поштою.</returns>
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Email!.Equals(email));
@@ -50,7 +51,7 @@ public class SearchRepository(SportDbContext context) : ISearchRepository
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

@@ -1,6 +1,7 @@
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
+
 
 namespace Sport.API.Repositories;
 
@@ -8,7 +9,7 @@ namespace Sport.API.Repositories;
 /// Репозіторі профілю користувача.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public class ProfileRepository(SportDbContext context) : IProfileRepository
+public sealed class ProfileRepository(SportDbContext context) : IProfileRepository
 {
     /// <summary>
     /// Видалити профіль.
@@ -23,7 +24,6 @@ public class ProfileRepository(SportDbContext context) : IProfileRepository
     /// Редагування профілю.
     /// </summary>
     /// <param name="user">Відредагований користувач.</param>
-    /// <returns></returns>
     public void Update(User user)
     {
         context.Users.Update(user);
@@ -32,7 +32,7 @@ public class ProfileRepository(SportDbContext context) : IProfileRepository
     /// <summary>
     /// Зберегти зміни.
     /// </summary>
-    public void Save()
+    public void Save() 
     {
         context.SaveChanges();
     }
@@ -43,7 +43,7 @@ public class ProfileRepository(SportDbContext context) : IProfileRepository
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

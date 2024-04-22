@@ -6,7 +6,9 @@ using Sport.API.Models;
 using Sport.API.Profiles;
 using Sport.API.Repositories;
 using Sport.API.Repositories.Interfaces;
+using Sport.API.Contexts;
 using Sport.API.Services;
+using Sport.API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +30,6 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Sport",
         Version = "v1",
         Description = "An API to sport for Collage",
-        
     });
     
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -50,10 +51,16 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
     .AddEntityFrameworkStores<SportDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
+// Repositories
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+
+// Services
+builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

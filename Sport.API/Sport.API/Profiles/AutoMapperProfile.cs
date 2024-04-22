@@ -4,7 +4,7 @@ using Sport.API.Models.DTOs;
 using Sport.API.Models.DTOs.Response.Activity;
 using Sport.API.Models.DTOs.Response.User;
 
-namespace Sport.API.Services;
+namespace Sport.API.Profiles;
 
 /// <summary>
 /// Профіль маппера об'єктів.

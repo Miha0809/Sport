@@ -2,7 +2,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
+
 
 namespace Sport.API.Repositories;
 
@@ -11,13 +12,13 @@ namespace Sport.API.Repositories;
 /// </summary>
 /// <param name="context">Контекст БД.</param>
 /// <param name="userManager">Медеджер користувача.</param>
-public class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
+public sealed class UserRepository(SportDbContext context, UserManager<User> userManager) : IUserRepository
 {
     /// <summary>
-    /// 
+    /// Авторизований користувач.
     /// </summary>
-    /// <param name="claimsPrincipal"></param>
-    /// <returns></returns>
+    /// <param name="claimsPrincipal">Інформація про авторизованого користувача.</param>
+    /// <returns>Авторизований користувач</returns>
     public async Task<User?> GetUserAsync(ClaimsPrincipal claimsPrincipal)
     {
         var user = await userManager.GetUserAsync(claimsPrincipal);
@@ -30,7 +31,7 @@ public class UserRepository(SportDbContext context, UserManager<User> userManage
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

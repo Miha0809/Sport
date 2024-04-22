@@ -2,22 +2,19 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Services.Interfaces;
 
 namespace Sport.API.Controllers;
 
 /// <summary>
 /// Контроллер власного профілю.
 /// </summary>
-/// <param name="profileRepository">Репозіторі профіля користувача.</param>
-/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
-/// <param name="context">Контекст БД.</param>
+/// <param name="profileService">Репозіторі профіля користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ProfileController(IProfileRepository profileRepository, IUserRepository userRepository, SportDbContext context, IMapper mapper) : Controller
+public class ProfileController(IProfileService profileService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Інформація про профіль.
@@ -26,9 +23,18 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var user = await userRepository.GetUserAsync(User);
+        try
+        {
+            var userEmail = User.Identity!.Name!;
+            var user = await profileService.ProfileAsync(userEmail);
         
-        return Ok(mapper.Map<UserShowPrivateDto>(user));
+            return Ok(mapper.Map<UserShowPrivateDto>(user));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     /// <summary>
@@ -39,20 +45,18 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] UserUpdateDto? userDto)
     {
-        var user = await userRepository.GetUserAsync(User);
-
-        if (user is null || userDto is null )
+        try
         {
-            return BadRequest();
+            var userEmail = User.Identity!.Name!;
+            var userUpdate = await profileService.UpdateAsync(userDto, userEmail);
+            
+            return Ok(mapper.Map<UserShowPrivateDto>(userUpdate));
         }
-
-        user.FirstName = userDto.FirstName;
-        user.LastName = userDto.LastName;
-        
-        profileRepository.Update(user);
-        profileRepository.Save();
-        
-        return Ok(mapper.Map<UserShowPrivateDto>(user));
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     /// <summary>
@@ -62,22 +66,18 @@ public class ProfileController(IProfileRepository profileRepository, IUserReposi
     [HttpDelete]
     public async Task<IActionResult> Remove()
     {
-        var user = await userRepository.GetUserAsync(User);
-
-        if (user is null)
+        try
         {
-            return BadRequest();
-        }
+            var userEmail = User.Identity!.Name!;
+            await profileService.RemoveAsync(userEmail);
 
-        if (user.Images is not null)
-        {
-            context.Images.RemoveRange(user.Images);
+            return RedirectToAction("Logout");
         }
-        
-        profileRepository.Remove(user);
-        profileRepository.Save();
-        
-        return RedirectToAction("Logout");
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     /// <summary>

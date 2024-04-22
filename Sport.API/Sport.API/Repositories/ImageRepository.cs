@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Services;
+using Sport.API.Contexts;
 
 namespace Sport.API.Repositories;
 
@@ -8,8 +9,18 @@ namespace Sport.API.Repositories;
 /// Репозіторі зображень.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public class ImageRepository(SportDbContext context) : IImageRepository
+public sealed class ImageRepository(SportDbContext context) : IImageRepository
 {
+    /// <summary>
+    /// Зображення по посиланню.
+    /// </summary>
+    /// <param name="link">Посилання.</param>
+    /// <returns>Зображення по посиланню.</returns>
+    public async Task<Image?> GetByLink(string link)
+    {
+        return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
+    }
+
     /// <summary>
     /// Змінити данні зображення.
     /// </summary>
@@ -29,6 +40,27 @@ public class ImageRepository(SportDbContext context) : IImageRepository
     }
 
     /// <summary>
+    /// Видалення зображень.
+    /// </summary>
+    /// <param name="images">Зображення.</param>
+    public void RemoveRange(IList<Image> images)
+    {
+        context.Images.RemoveRange(images);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="link"></param>
+    /// <returns></returns>
+    public bool IsExists(string link)
+    {
+        var image = context.Images.FirstOrDefault(image => image.Link.Equals(link));
+        var isExists = image is not null;
+        return isExists;
+    }
+
+    /// <summary>
     /// Збереження змін.
     /// </summary>
     public void Save()
@@ -42,7 +74,7 @@ public class ImageRepository(SportDbContext context) : IImageRepository
     /// Звільнення ресурсів.
     /// </summary>
     /// <param name="disposing">Стан.</param>
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposed)
         {

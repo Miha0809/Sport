@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Sport.API.Models;
 
-namespace Sport.API.Services;
+namespace Sport.API.Contexts;
 
 /// <summary>
 /// Контекст БД.

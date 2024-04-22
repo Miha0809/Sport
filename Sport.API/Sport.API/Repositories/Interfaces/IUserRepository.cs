@@ -12,6 +12,5 @@ public interface IUserRepository : IDisposable
     /// Авторизований користувач.
     /// </summary>
     /// <param name="claimsPrincipal">Користувач.</param>
-    /// <returns></returns>
     Task<User?> GetUserAsync(ClaimsPrincipal claimsPrincipal);
 }
