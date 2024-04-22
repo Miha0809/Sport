@@ -1,24 +1,22 @@
-using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models;
 using Sport.API.Models.DTOs;
 using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
+using Sport.API.Services.Interfaces;
 
 namespace Sport.API.Controllers;
 
 /// <summary>
 /// Контроллер зображень для профілю.
 /// </summary>
-/// <param name="userRepository"></param>
-/// <param name="imageRepository"></param>
+/// <param name="imageService">Сервіс зображень.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ImageController(IUserRepository userRepository, IImageRepository imageRepository, IMapper mapper) : Controller
+public class ImageController(IImageService imageService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Всі зображення.
@@ -27,11 +25,17 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
     [HttpGet]
     public async Task<IActionResult> Images()
     {
-        var user = await userRepository.GetUserAsync(User);
-        var images = user?.Images;
-        var imagesMapping = mapper.Map<List<ImageDto>>(images);
-        
-        return Ok(imagesMapping);
+        try
+        {
+            var userEmail = User.Identity!.Name!;
+            var images = await imageService.GetImagesAsync(userEmail);
+            return Ok(mapper.Map<List<ImageDto>>(images));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
     
     /// <summary>
@@ -58,18 +62,18 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] List<ImageDto> images)
     {
-        var user = await userRepository.GetUserAsync(User);
-        var validImages = images.Where(image => IsValidImage(image.Link)).ToList();
-        
-        if (user is null || validImages.Count == 0)
+        try
         {
-            return BadRequest();
+            var userEmail = User.Identity!.Name!;
+            var imageMapping = mapper.Map<List<ImageDto>, List<Image>>(images);
+            var user = await imageService.AddAsync(imageMapping, userEmail);
+            return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
-
-        user.Images!.AddRange(mapper.Map<List<ImageDto>, List<Image>>(validImages));
-        imageRepository.Save();
-                
-        return Ok(mapper.Map<UserShowPrivateDto>(user));
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
     
     /// <summary>
@@ -81,30 +85,18 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] ImageDto imageDto, string oldLink)
     {
-        var oldImage = await imageRepository.GetByLink(oldLink);
-        var isValidLink = IsValidImage(imageDto.Link);
-        
-        if (oldImage is null || !isValidLink)
+        try
         {
-            return BadRequest();
+            var imageMapping = mapper.Map<Image>(imageDto);
+            var image = await imageService.UpdateAsync(imageMapping, oldLink);
+            var imageMappingToDto = mapper.Map<ImageDto>(image);
+            return Ok(imageMappingToDto);
         }
-
-        oldImage.Link = imageDto.Link;
-        
-        imageRepository.Update(oldImage);
-        imageRepository.Save();
-                
-        return Ok(oldImage);
-    }
-
-    /// <summary>
-    /// Перевіряє чи адресс є зображенням.
-    /// </summary>
-    /// <param name="link">Адрес зображення.</param>
-    /// <returns></returns>
-    private bool IsValidImage(string link)
-    {
-        return Regex.IsMatch(link, @"\.jpg|\.jpeg|\.svg|\.png", RegexOptions.IgnoreCase);
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     /// <summary>
@@ -115,21 +107,15 @@ public class ImageController(IUserRepository userRepository, IImageRepository im
     [HttpDelete]
     public async Task<IActionResult> Remove(string link)
     {
-        if (string.IsNullOrWhiteSpace(link))
+        try
         {
-            return BadRequest();
+            var isRemove = await imageService.RemoveAsync(link);
+            return Ok(isRemove);
         }
-
-        var image = await imageRepository.GetByLink(link);
-
-        if (image == null)
+        catch (Exception e)
         {
-            return BadRequest();
+            Console.WriteLine(e);
+            throw;
         }
-
-        imageRepository.Remove(image);
-        imageRepository.Save();
-
-        return Ok(StatusCodes.Status200OK);
     }
 }

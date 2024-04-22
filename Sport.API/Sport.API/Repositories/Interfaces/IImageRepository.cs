@@ -30,6 +30,13 @@ public interface IImageRepository : IDisposable
     /// </summary>
     /// <param name="images">Зображення.</param>
     void RemoveRange(IList<Image> images);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="link"></param>
+    /// <returns></returns>
+    bool IsExists(string link);
     
     /// <summary>
     /// Збереження змін.

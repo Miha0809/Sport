@@ -49,6 +49,18 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="link"></param>
+    /// <returns></returns>
+    public bool IsExists(string link)
+    {
+        var image = context.Images.FirstOrDefault(image => image.Link.Equals(link));
+        var isExists = image is not null;
+        return isExists;
+    }
+
+    /// <summary>
     /// Збереження змін.
     /// </summary>
     public void Save()
