@@ -56,11 +56,13 @@ builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
 // Services
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 
 var app = builder.Build();
 

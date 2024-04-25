@@ -20,4 +20,9 @@ public class User : IdentityUser
     /// Багато зображень.
     /// </summary>
     public virtual List<Image>? Images { get; set; }
+    
+    /// <summary>
+    /// Активності користувача.
+    /// </summary>
+    public virtual List<Activity>? Activities { get; set; }
 }

@@ -19,4 +19,9 @@ public class SportDbContext(DbContextOptions<SportDbContext> options) : Identity
     /// Таблиця активностей.
     /// </summary>
     public required DbSet<Activity> Activities { get; set; }
+    
+    /// <summary>
+    /// Таблиця типів активностей.
+    /// </summary>
+    public required DbSet<ActivityType> ActivityTypes { get; set; }
 }

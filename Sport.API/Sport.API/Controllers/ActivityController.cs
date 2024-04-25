@@ -3,39 +3,46 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models;
 using Sport.API.Models.DTOs.Response.Activity;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
+using Sport.API.Services.Interfaces;
 
 namespace Sport.API.Controllers;
 
 /// <summary>
 /// Контроллер активності.
 /// </summary>
-/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
+/// <param name="activityService">Репозіторі авторизованого користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ActivityController(IUserRepository userRepository, IMapper mapper) : Controller
+public class ActivityController(IActivityService activityService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Збереження активності.
     /// </summary>
-    /// <param name="activity">Активність.</param>
-    /// <returns></returns>
+    /// <remarks>
+    /// Types:
+    /// 
+    ///     [
+    ///         CYCLING
+    ///         RUNNING
+    ///         WALKING
+    ///     ]
+    /// </remarks>
+    /// <param name="activityDto">Активність.</param>
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ActivityCreateDto? activity)
+    public async Task<IActionResult> Create([FromBody] ActivityCreateDto? activityDto)
     {
-        var user = await userRepository.GetUserAsync(User);
-
-        if (activity is null)
+        try
         {
-            return BadRequest("Activity is null");
+            var activityMapping = mapper.Map<Activity>(activityDto);
+            var activity = await activityService.Create(activityMapping, User.Identity!.Name!);
+            return Ok(activity);
         }
-
-        activity.User = mapper.Map<UserShowPublicDto>(user);
-        var activity2 = mapper.Map<Activity>(activity);
-        
-        return Ok(activity);
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 }

@@ -1,11 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Models.Enums;
-
 namespace Sport.API.Models.DTOs.Response.Activity;
 
 /// <summary>
-/// 
+/// DTO для створення активності.
 /// </summary>
 public class ActivityCreateDto
 {
@@ -37,13 +33,5 @@ public class ActivityCreateDto
     /// <summary>
     /// Тип активності.
     /// </summary>
-    [EnumDataType(typeof(ActivityType))]
-    public ActivityType ActivityType { get; set; }
-    
-    /// <summary>
-    /// Автор активності.
-    /// </summary>
-    public virtual UserShowPublicDto? User { get; set; }
-    
-    // TODO: likes
+    public required string ActivityType { get; set; }
 }

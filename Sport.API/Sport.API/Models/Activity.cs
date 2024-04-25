@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Sport.API.Models.Enums;
 
 namespace Sport.API.Models;
 
@@ -37,13 +36,7 @@ public class Activity
     /// <summary>
     /// Тип активності.
     /// </summary>
-    [EnumDataType(typeof(ActivityType))]
-    public ActivityType ActivityType { get; set; }
-    
-    /// <summary>
-    /// Автор активності.
-    /// </summary>
-    public virtual User? User { get; set; }
-    
+    public required string ActivityType { get; set; }
+
     // TODO: Locations, comments, ?likes
 }
