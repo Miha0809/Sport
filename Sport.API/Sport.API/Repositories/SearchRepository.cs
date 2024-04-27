@@ -3,7 +3,6 @@ using Sport.API.Models;
 using Sport.API.Repositories.Interfaces;
 using Sport.API.Contexts;
 
-
 namespace Sport.API.Repositories;
 
 /// <summary>
@@ -20,11 +19,6 @@ public sealed class SearchRepository(SportDbContext context) : ISearchRepository
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Email!.Equals(email));
 
-        if (user is null)
-        {
-            return null;
-        }
-        
         return user;
     }
 

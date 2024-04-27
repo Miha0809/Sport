@@ -3,39 +3,102 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sport.API.Models;
 using Sport.API.Models.DTOs.Response.Activity;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
+using Sport.API.Services.Interfaces;
 
 namespace Sport.API.Controllers;
 
 /// <summary>
 /// Контроллер активності.
 /// </summary>
-/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
+/// <param name="activityService">Репозіторі авторизованого користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ActivityController(IUserRepository userRepository, IMapper mapper) : Controller
+public class ActivityController(IActivityService activityService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Збереження активності.
     /// </summary>
-    /// <param name="activity">Активність.</param>
-    /// <returns></returns>
+    /// <remarks>
+    /// Types:
+    /// 
+    ///     [
+    ///         CYCLING
+    ///         RUNNING
+    ///         WALKING
+    ///     ]
+    /// </remarks>
+    /// <param name="activityDto">Активність.</param>
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ActivityCreateDto? activity)
+    public async Task<IActionResult> Create([FromBody] ActivityCreateDto? activityDto)
     {
-        var user = await userRepository.GetUserAsync(User);
-
-        if (activity is null)
+        try
         {
-            return BadRequest("Activity is null");
+            var activityMapping = mapper.Map<Activity>(activityDto);
+            var activity = await activityService.CreateAsync(activityMapping, User.Identity!.Name!);
+            return Ok(mapper.Map<ActivityShowPublicDto>(activity));
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
+    }
 
-        activity.User = mapper.Map<UserShowPublicDto>(user);
-        var activity2 = mapper.Map<Activity>(activity);
-        
-        return Ok(activity);
+    /// <summary>
+    /// Всі активності.
+    /// </summary>
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAll()
+    {
+        try
+        {
+            var activities = await activityService.GetAllAsync();
+            return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Активність по ідентифікатору.
+    /// </summary>
+    /// <param name="id">Ідентифікатор.</param>
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        try
+        {
+            var activityById = await activityService.GetByIdAsync(id);
+            return Ok(mapper.Map<ActivityShowPublicDto>(activityById));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Всі активності авторизованого користувача.
+    /// </summary>
+    [HttpGet("user")]
+    public async Task<IActionResult> GetByUser()
+    {
+        try
+        {
+            var email = User.Identity!.Name!;
+            var activities = await activityService.GetAllByUserAsync(email);
+            return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 }

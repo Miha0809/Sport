@@ -19,4 +19,21 @@ public class SportDbContext(DbContextOptions<SportDbContext> options) : Identity
     /// Таблиця активностей.
     /// </summary>
     public required DbSet<Activity> Activities { get; set; }
+    
+    /// <summary>
+    /// Таблиця типів активностей.
+    /// </summary>
+    public required DbSet<ActivityType> ActivityTypes { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasMany(e => e.Activities)
+            .WithOne(e => e.User)
+            .HasForeignKey(e => e.UserId)
+            .IsRequired();
+        
+        base.OnModelCreating(modelBuilder);
+    }
 }
