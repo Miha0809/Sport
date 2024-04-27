@@ -1,19 +1,17 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Sport.API.Models.DTOs.Response.User;
 
-namespace Sport.API.Models;
+namespace Sport.API.Models.DTOs.Response.Activity;
 
 /// <summary>
-/// Активність.
+/// DTO активності для публічного оглядання.
 /// </summary>
-public class Activity
+public class ActivityShowPublicDto
 {
     /// <summary>
     /// Ідентифікатор.
     /// </summary>
-    [Key]
-    public int Id { get; set; }
- 
+    public required int Id { get; set; }
+    
     /// <summary>
     /// Початок активності.
     /// </summary>
@@ -35,19 +33,17 @@ public class Activity
     public double Speed { get; set; }
     
     /// <summary>
+    /// Тривалість активності.
+    /// </summary>
+    public double Time { get; set; }
+    
+    /// <summary>
     /// Тип активності.
     /// </summary>
     public required string ActivityType { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public required string UserId { get; set; }
     
     /// <summary>
-    /// Власник активності.
+    /// Автор активності.
     /// </summary>
-    [ForeignKey("UserId")]
-    public virtual required User User { get; set; }
-    // TODO: Locations, comments, ?likes
+    public required UserShowPublicDto User { get; set; }
 }

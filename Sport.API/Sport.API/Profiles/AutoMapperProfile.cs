@@ -23,5 +23,6 @@ public class AutoMapperProfile : Profile
         CreateMap<ImageDto, Image>();
         CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
         CreateMap<Activity, ActivityCreateDto>().ReverseMap();
+        CreateMap<Activity, ActivityShowPublicDto>();
     }
 }
