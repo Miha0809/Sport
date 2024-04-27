@@ -1,7 +1,9 @@
-using System.Security.Claims;
-using Sport.API.Models;
-
 namespace Sport.API.Repositories.Interfaces;
+
+using System.Security.Claims;
+
+using Models;
+
 
 /// <summary>
 /// Інтерфейс репозіторія авторизованого користувача.

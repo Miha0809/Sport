@@ -1,6 +1,6 @@
-using Sport.API.Models;
-
 namespace Sport.API.Repositories.Interfaces;
+
+using Models;
 
 /// <summary>
 /// Інтерфейс репозіторія профілю користувача.

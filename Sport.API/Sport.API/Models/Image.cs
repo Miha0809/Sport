@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Sport.API.Models;
+
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Зображення.

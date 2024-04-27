@@ -1,9 +1,9 @@
-using Sport.API.Models;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services.Interfaces;
-
 namespace Sport.API.Services;
+
+using Sport.API.Repositories.Interfaces;
+using Models.DTOs.Response.User;
+using Models;
+using Interfaces;
 
 /// <summary>
 /// Сервіс власного профілю.
@@ -18,6 +18,7 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     public async Task<User> ProfileAsync(string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
+        
         return user!;
     }
 

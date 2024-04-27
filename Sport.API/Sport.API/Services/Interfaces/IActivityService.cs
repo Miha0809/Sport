@@ -1,6 +1,6 @@
-using Sport.API.Models;
-
 namespace Sport.API.Services.Interfaces;
+
+using Models;
 
 /// <summary>
 /// 

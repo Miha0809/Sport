@@ -1,9 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Contexts;
-
 namespace Sport.API.Repositories;
+
+using Microsoft.EntityFrameworkCore;
+using Models;
+using Interfaces;
+using Contexts;
+
 
 /// <summary>
 /// Репозіторі пошуку.
@@ -31,12 +32,14 @@ public sealed class SearchRepository(SportDbContext context) : ISearchRepository
     /// <returns>Користувачів із однаковими іменами та/або фаміліями.</returns>
     public async Task<List<User>> FindUsersByFullNameAsync(string firstName, string lastName, string currentUserEmail)
     {
-        return await context.Users
+        var users = await context.Users
             .Where(user =>
                 (user.FirstName != null && user.FirstName.Equals(firstName)) &&
                 (user.LastName != null && user.LastName.Equals(lastName)) &&
-                 !user.Email!.Equals(currentUserEmail))
+                !user.Email!.Equals(currentUserEmail))
             .ToListAsync();
+
+        return users;
     }
 
     private bool _disposed;

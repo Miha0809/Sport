@@ -1,9 +1,10 @@
-using System.Text.RegularExpressions;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services.Interfaces;
-
 namespace Sport.API.Services;
+
+using System.Text.RegularExpressions;
+
+using Sport.API.Repositories.Interfaces;
+using Models;
+using Interfaces;
 
 /// <summary>
 /// 

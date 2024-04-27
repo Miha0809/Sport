@@ -9,6 +9,7 @@ public class UserUpdateDto
     /// Ім'я.
     /// </summary>
     public required string FirstName { get; set; }
+    
     /// <summary>
     /// Прізвище.
     /// </summary>

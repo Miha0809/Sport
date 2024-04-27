@@ -1,11 +1,10 @@
+namespace Sport.API.Repositories;
+
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Contexts;
-
-
-namespace Sport.API.Repositories;
+using Contexts;
+using Models;
+using Interfaces;
 
 /// <summary>
 /// Репозіторі користувача.
@@ -22,6 +21,7 @@ public sealed class UserRepository(SportDbContext context, UserManager<User> use
     public async Task<User?> GetUserAsync(ClaimsPrincipal claimsPrincipal)
     {
         var user = await userManager.GetUserAsync(claimsPrincipal);
+        
         return user;
     }
     

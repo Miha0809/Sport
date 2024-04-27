@@ -1,8 +1,9 @@
-using Sport.API.Contexts;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-
 namespace Sport.API.Repositories;
+
+using Contexts;
+using Models;
+using Interfaces;
+
 
 /// <summary>
 /// Репозіторі активності.

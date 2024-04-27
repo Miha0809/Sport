@@ -1,12 +1,13 @@
+namespace Sport.API.Controllers;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sport.API.Models;
-using Sport.API.Models.DTOs;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Services.Interfaces;
 
-namespace Sport.API.Controllers;
+using Models;
+using Models.DTOs;
+using Models.DTOs.Response.User;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер зображень для профілю.
@@ -29,6 +30,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
         {
             var userEmail = User.Identity!.Name!;
             var images = await imageService.GetImagesAsync(userEmail);
+            
             return Ok(mapper.Map<List<ImageDto>>(images));
         }
         catch (Exception e)
@@ -67,6 +69,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             var userEmail = User.Identity!.Name!;
             var imageMapping = mapper.Map<List<ImageDto>, List<Image>>(images);
             var user = await imageService.AddAsync(imageMapping, userEmail);
+            
             return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
         catch (Exception e)
@@ -90,6 +93,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             var imageMapping = mapper.Map<Image>(imageDto);
             var image = await imageService.UpdateAsync(imageMapping, oldLink);
             var imageMappingToDto = mapper.Map<ImageDto>(image);
+            
             return Ok(imageMappingToDto);
         }
         catch (Exception e)
@@ -110,6 +114,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
         try
         {
             var isRemove = await imageService.RemoveAsync(link);
+            
             return Ok(isRemove);
         }
         catch (Exception e)

@@ -1,8 +1,8 @@
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services.Interfaces;
-
 namespace Sport.API.Services;
+
+using Sport.API.Repositories.Interfaces;
+using Models;
+using Interfaces;
 
 /// <summary>
 /// Сервіс активності.
@@ -45,6 +45,7 @@ public class ActivityService(IActivityTypeRepository activityTypeRepository, IAc
     public async Task<List<Activity>> GetAllAsync()
     {
         var activities = await activitySearchRepository.GetAllAsync();
+        
         return activities;
     }
 
@@ -72,6 +73,7 @@ public class ActivityService(IActivityTypeRepository activityTypeRepository, IAc
     public async Task<List<Activity>> GetAllByUserAsync(string email)
     {
         var activities = await activitySearchRepository.GetAllByUserAsync(email);
+        
         return activities;
     }
 }

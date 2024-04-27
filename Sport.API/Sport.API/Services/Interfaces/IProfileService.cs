@@ -1,7 +1,7 @@
-using Sport.API.Models;
-using Sport.API.Models.DTOs.Response.User;
-
 namespace Sport.API.Services.Interfaces;
+
+using Models;
+using Models.DTOs.Response.User;
 
 /// <summary>
 /// 

@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace Sport.API.Models;
+
+using Microsoft.AspNetCore.Identity;
 
 /// <summary>
 /// Користувач.
 /// </summary>
-public class User : IdentityUser
+public sealed class User : IdentityUser
 {
     /// <summary>
     /// Ім'я.
@@ -19,10 +19,10 @@ public class User : IdentityUser
     /// <summary>
     /// Багато зображень.
     /// </summary>
-    public virtual List<Image>? Images { get; set; }
+    public List<Image>? Images { get; set; }
     
     /// <summary>
     /// Активності користувача.
     /// </summary>
-    public virtual List<Activity>? Activities { get; set; }
+    public List<Activity>? Activities { get; set; }
 }
