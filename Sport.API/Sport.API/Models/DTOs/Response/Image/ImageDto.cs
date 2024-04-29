@@ -1,4 +1,4 @@
-namespace Sport.API.Models.DTOs;
+namespace Sport.API.Models.DTOs.Response.Image;
 
 /// <summary>
 /// DTO зображення.

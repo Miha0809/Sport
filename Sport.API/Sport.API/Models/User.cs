@@ -11,6 +11,7 @@ public sealed class User : IdentityUser
     /// Ім'я.
     /// </summary>
     public string? FirstName { get; set; }    
+    
     /// <summary>
     /// Прізвище.
     /// </summary>

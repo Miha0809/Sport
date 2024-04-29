@@ -1,3 +1,5 @@
+using Sport.API.Models.DTOs.Response.Image;
+
 namespace Sport.API.Controllers;
 
 using AutoMapper;
@@ -5,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Models;
-using Models.DTOs;
 using Models.DTOs.Response.User;
 using Services.Interfaces;
 

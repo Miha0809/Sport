@@ -49,5 +49,6 @@ public sealed class Activity
     /// </summary>
     [ForeignKey("UserId")]
     public required User User { get; set; }
+    
     // TODO: Locations, comments, ?likes
 }

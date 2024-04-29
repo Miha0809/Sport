@@ -4,7 +4,6 @@ using Contexts;
 using Models;
 using Interfaces;
 
-
 /// <summary>
 /// Репозіторі активності.
 /// </summary>

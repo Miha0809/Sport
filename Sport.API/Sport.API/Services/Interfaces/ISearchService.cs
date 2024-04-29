@@ -3,7 +3,6 @@ namespace Sport.API.Services.Interfaces;
 using Models;
 using Models.DTOs.Requests.Search;
 
-
 /// <summary>
 /// Інтерфейс сервісу пошуку.
 /// </summary>

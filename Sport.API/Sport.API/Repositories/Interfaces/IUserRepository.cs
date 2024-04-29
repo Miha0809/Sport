@@ -4,7 +4,6 @@ using System.Security.Claims;
 
 using Models;
 
-
 /// <summary>
 /// Інтерфейс репозіторія авторизованого користувача.
 /// </summary>

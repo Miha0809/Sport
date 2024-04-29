@@ -1,3 +1,5 @@
+using Sport.API.Models.DTOs.Response.Image;
+
 namespace Sport.API.Models.DTOs.Response.User;
 
 /// <summary>
@@ -9,6 +11,7 @@ public class UserShowPrivateDto
     /// Ім'я.
     /// </summary>
     public required string FirstName { get; set; }
+    
     /// <summary>
     /// Прізвище.
     /// </summary>
@@ -32,10 +35,12 @@ public class UserShowPrivateDto
     /// Номер мобільного телефону.
     /// </summary>
     public string? PhoneNumber { get; set; }
+    
     /// <summary>
     /// Чи підтверджений номер мобільного телефону.
     /// </summary>
     public required bool PhoneNumberConfirmed { get; set; }
+    
     /// <summary>
     /// Чи включена двоетапна перевірка.
     /// </summary>

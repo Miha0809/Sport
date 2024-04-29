@@ -5,7 +5,6 @@ using Models;
 using Interfaces;
 using Contexts;
 
-
 /// <summary>
 /// Репозіторі пошуку.
 /// </summary>

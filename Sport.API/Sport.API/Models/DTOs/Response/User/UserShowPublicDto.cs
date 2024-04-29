@@ -1,3 +1,5 @@
+using Sport.API.Models.DTOs.Response.Image;
+
 namespace Sport.API.Models.DTOs.Response.User;
 
 /// <summary>
@@ -9,6 +11,7 @@ public class UserShowPublicDto
     /// Ім'я.
     /// </summary>
     public required string FirstName { get; set; }
+    
     /// <summary>
     /// Прізвище.
     /// </summary>

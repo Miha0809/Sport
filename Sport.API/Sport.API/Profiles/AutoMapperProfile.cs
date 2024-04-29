@@ -1,9 +1,10 @@
+using Sport.API.Models.DTOs.Response.Image;
+
 namespace Sport.API.Profiles;
 
 using AutoMapper;
 
 using Models;
-using Models.DTOs;
 using Models.DTOs.Response.Activity;
 using Models.DTOs.Response.User;
 
