@@ -7,6 +7,10 @@ using Interfaces;
 /// <summary>
 /// Сервіс активності.
 /// </summary>
+/// <param name="activityTypeRepository">Інтерфейс репозіторія для типу активності.</param>
+/// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
+/// <param name="searchRepository">Репозіторі пошуку.</param>
+/// <param name="profileRepository">Репозіторі профілю користувача.</param>
 public class ActivityService(IActivityTypeRepository activityTypeRepository, IActivitySearchRepository activitySearchRepository, ISearchRepository searchRepository, IProfileRepository profileRepository) : IActivityService
 {
     /// <summary>

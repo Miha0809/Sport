@@ -7,6 +7,7 @@ using Interfaces;
 /// <summary>
 /// Репозіторі активності.
 /// </summary>
+/// <param name="context">Контекст БД.</param>
 public class ActivityRepository(SportDbContext context) : IActivityRepository
 {
     /// <summary>

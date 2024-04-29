@@ -32,10 +32,9 @@ public interface IImageRepository : IDisposable
     void RemoveRange(IList<Image> images);
 
     /// <summary>
-    /// 
+    /// Чи існує зображення.
     /// </summary>
-    /// <param name="link"></param>
-    /// <returns></returns>
+    /// <param name="link">Адрес зображення.</param>
     bool IsExists(string link);
     
     /// <summary>

@@ -9,6 +9,7 @@ using Interfaces;
 /// <summary>
 /// Репозіторі пошуку активності.
 /// </summary>
+/// <param name="context">Контекст БД.</param>
 public class ActivitySearchRepository(SportDbContext context) : IActivitySearchRepository
 {
     /// <summary>

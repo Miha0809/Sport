@@ -8,13 +8,15 @@ using Interfaces;
 /// <summary>
 /// Сервіс власного профілю.
 /// </summary>
+/// <param name="profileRepository">Репозіторі профілю користувача.</param>
+/// <param name="searchRepository">Репозіторі пошуку.</param>
+/// <param name="imageRepository">Репозіторі зображень.</param>
 public class ProfileService(IProfileRepository profileRepository, ISearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
 {
     /// <summary>
     /// Інформація про профіль.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns>Авторизованого користувача.</returns>
     public async Task<User> ProfileAsync(string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
@@ -27,7 +29,6 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     /// </summary>
     /// <param name="userUpdateDto">Dto для редагування користувача.</param>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns>Оновлений профліь користувача.</returns>
     public async Task<User?> UpdateAsync(UserUpdateDto? userUpdateDto, string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
@@ -50,7 +51,6 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     /// Видалити профіль.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    /// <returns>Стан видалення профілю.</returns>
     public async Task<bool?> RemoveAsync(string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);

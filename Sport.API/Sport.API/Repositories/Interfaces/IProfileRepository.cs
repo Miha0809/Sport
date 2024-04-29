@@ -17,7 +17,6 @@ public interface IProfileRepository : IDisposable
     /// Редагування профілю.
     /// </summary>
     /// <param name="user">Відредагований користувач.</param>
-    /// <returns></returns>
     void Update(User user);
     
     /// <summary>

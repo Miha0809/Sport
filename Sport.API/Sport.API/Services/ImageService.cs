@@ -7,15 +7,16 @@ using Models;
 using Interfaces;
 
 /// <summary>
-/// 
+/// Сервіс зображень.
 /// </summary>
+/// <param name="searchRepository">Репозіторі пошуку.</param>
+/// <param name="imageRepository">Репозіторі зображень.</param>
 public class ImageService(ISearchRepository searchRepository, IImageRepository imageRepository) : IImageService
 {
     /// <summary>
-    /// 
+    /// Всі зображення авторизованого користувача.
     /// </summary>
-    /// <param name="email"></param>
-    /// <returns></returns>
+    /// <param name="email">Елетронна пошта авторизованого користувача.</param>
     public async Task<List<Image>?> GetImagesAsync(string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
@@ -31,11 +32,10 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     }
 
     /// <summary>
-    /// 
+    /// Добавити зображення для авторизованого користувача.
     /// </summary>
-    /// <param name="images"></param>
-    /// <param name="email"></param>
-    /// <returns></returns>
+    /// <param name="images">Зображення.</param>
+    /// <param name="email">Елетронна пошта авторизованого користувача.</param>
     public async Task<User?> AddAsync(List<Image> images, string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
@@ -55,10 +55,10 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     }
 
     /// <summary>
-    /// 
+    /// Редагування зображення.
     /// </summary>
-    /// <param name="image"></param>
-    /// <param name="oldLink"></param>
+    /// <param name="image">Зображення.</param>
+    /// <param name="oldLink">Старий адрес зображженя.</param>
     public async Task<Image?> UpdateAsync(Image image, string oldLink)
     {
         var oldImage = await imageRepository.GetByLinkAsync(oldLink);
@@ -78,10 +78,9 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     }
 
     /// <summary>
-    /// 
+    /// Видалення зображженя.
     /// </summary>
-    /// <param name="link"></param>
-    /// <returns></returns>
+    /// <param name="link">Адрес зображення.</param>
     public async Task<bool?> RemoveAsync(string link)
     {
         if (string.IsNullOrWhiteSpace(link))
@@ -108,7 +107,6 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     /// Перевіряє чи адресс є зображенням.
     /// </summary>
     /// <param name="link">Адрес зображення.</param>
-    /// <returns></returns>
     private bool IsValidLinkImage(string link)
     {
         return Regex.IsMatch(link, @"\.jpg$|\.jpeg$|\.svg$|\.png$");

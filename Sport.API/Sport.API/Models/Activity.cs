@@ -40,12 +40,12 @@ public class Activity
     public required string ActivityType { get; set; }
 
     /// <summary>
-    /// 
+    /// Ідентифікатор автора активності.
     /// </summary>
     public required string UserId { get; set; }
     
     /// <summary>
-    /// Власник активності.
+    /// Автор активності.
     /// </summary>
     [ForeignKey("UserId")]
     public virtual required User User { get; set; }

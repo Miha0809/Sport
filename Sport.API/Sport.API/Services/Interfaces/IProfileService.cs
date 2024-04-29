@@ -4,7 +4,7 @@ using Models;
 using Models.DTOs.Response.User;
 
 /// <summary>
-/// 
+/// Інтерфейс сервісу профілю авторизованого користувача.
 /// </summary>
 public interface IProfileService
 {
