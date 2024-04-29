@@ -11,7 +11,7 @@ public interface IImageRepository : IDisposable
     /// Зображення по посиланню.
     /// </summary>
     /// <param name="link">Посилання.</param>
-    Task<Image?> GetByLink(string link);
+    Task<Image?> GetByLinkAsync(string link);
     
     /// <summary>
     /// Змінити данні зображення.

@@ -17,7 +17,7 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     /// </summary>
     /// <param name="link">Посилання.</param>
     /// <returns>Зображення по посиланню.</returns>
-    public async Task<Image?> GetByLink(string link)
+    public async Task<Image?> GetByLinkAsync(string link)
     {
         return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
     }
@@ -58,6 +58,7 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     {
         var image = context.Images.FirstOrDefault(image => image.Link.Equals(link));
         var isExists = image is not null;
+        
         return isExists;
     }
 

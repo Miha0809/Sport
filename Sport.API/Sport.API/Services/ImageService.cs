@@ -61,7 +61,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     /// <param name="oldLink"></param>
     public async Task<Image?> UpdateAsync(Image image, string oldLink)
     {
-        var oldImage = await imageRepository.GetByLink(oldLink);
+        var oldImage = await imageRepository.GetByLinkAsync(oldLink);
         var isValidLink = IsValidLinkImage(image.Link);
         
         if (oldImage is null || !isValidLink)
@@ -89,7 +89,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
             return null;
         }
 
-        var image = await imageRepository.GetByLink(link);
+        var image = await imageRepository.GetByLinkAsync(link);
 
         if (image == null)
         {
@@ -99,7 +99,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
         imageRepository.Remove(image);
         imageRepository.Save();
 
-        var isExistsImage = await imageRepository.GetByLink(link) is null;
+        var isExistsImage = await imageRepository.GetByLinkAsync(link) is null;
         
         return isExistsImage;
     }
