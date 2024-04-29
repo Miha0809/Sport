@@ -1,7 +1,7 @@
 namespace Sport.API.Models.DTOs.Response.User;
 
 /// <summary>
-/// DTO користувача для публічного оглядання.
+/// DTO користувача для приватної оглядання.
 /// </summary>
 public class UserShowPrivateDto
 {
