@@ -18,20 +18,18 @@ public class ActivityCreateDto
     /// <summary>
     /// Дистанція у метрах.
     /// </summary>
+    /// <example>1234</example>
     public required double Distance { get; set; }
     
     /// <summary>
     /// Поточка швидкість.
     /// </summary>
+    /// <example>7.4</example>
     public required double Speed { get; set; }
 
     /// <summary>
-    /// Тривалість активності.
-    /// </summary>
-    public required double Time { get; set; }
-    
-    /// <summary>
     /// Тип активності.
     /// </summary>
+    /// <example>CYCLING</example>
     public required string ActivityType { get; set; }
 }
