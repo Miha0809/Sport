@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 /// <summary>
 /// Активність.
 /// </summary>
-public sealed class Activity
+public class Activity
 {
     /// <summary>
     /// Ідентифікатор.
@@ -48,7 +48,7 @@ public sealed class Activity
     /// Власник активності.
     /// </summary>
     [ForeignKey("UserId")]
-    public required User User { get; set; }
+    public virtual required User User { get; set; }
     
     // TODO: Locations, comments, ?likes
 }

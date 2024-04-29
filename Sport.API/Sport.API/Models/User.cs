@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 /// <summary>
 /// Користувач.
 /// </summary>
-public sealed class User : IdentityUser
+public class User : IdentityUser
 {
     /// <summary>
     /// Ім'я.
@@ -20,10 +20,10 @@ public sealed class User : IdentityUser
     /// <summary>
     /// Багато зображень.
     /// </summary>
-    public List<Image>? Images { get; set; }
+    public virtual List<Image>? Images { get; set; }
     
     /// <summary>
     /// Активності користувача.
     /// </summary>
-    public List<Activity>? Activities { get; set; }
+    public virtual List<Activity>? Activities { get; set; }
 }
