@@ -34,9 +34,9 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             
             return Ok(mapper.Map<List<ImageDto>>(images));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -73,9 +73,9 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             
             return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -97,9 +97,9 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             
             return Ok(imageMappingToDto);
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -118,9 +118,9 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             
             return Ok(isRemove);
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }

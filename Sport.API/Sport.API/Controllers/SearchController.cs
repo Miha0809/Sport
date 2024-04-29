@@ -34,9 +34,9 @@ public class SearchController(ISearchService searchService, IUserRepository user
             
             return Ok(mapper.Map<UserShowPublicDto>(user));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -55,9 +55,9 @@ public class SearchController(ISearchService searchService, IUserRepository user
             
             return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }

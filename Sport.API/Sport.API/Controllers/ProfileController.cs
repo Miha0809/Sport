@@ -31,9 +31,9 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
             
             return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -53,9 +53,9 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
             
             return Ok(mapper.Map<UserShowPrivateDto>(userUpdate));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -74,9 +74,9 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
             
             return RedirectToAction("Logout");
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }

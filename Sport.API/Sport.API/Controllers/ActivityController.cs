@@ -41,9 +41,9 @@ public class ActivityController(IActivityService activityService, IMapper mapper
             
             return Ok(mapper.Map<ActivityShowPublicDto>(activity));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -60,9 +60,9 @@ public class ActivityController(IActivityService activityService, IMapper mapper
             
             return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -80,9 +80,9 @@ public class ActivityController(IActivityService activityService, IMapper mapper
             
             return Ok(mapper.Map<ActivityShowPublicDto>(activityById));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -100,9 +100,9 @@ public class ActivityController(IActivityService activityService, IMapper mapper
             
             return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
