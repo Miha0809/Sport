@@ -1,11 +1,12 @@
-using Sport.API.Contexts;
-using Sport.API.Repositories.Interfaces;
-
 namespace Sport.API.Repositories;
+
+using Contexts;
+using Interfaces;
 
 /// <summary>
 /// Інтерфейс репозіторія для типу активності.
 /// </summary>
+/// <param name="context">Контекст БД.</param>
 public class ActivityTypeRepository(SportDbContext context) : IActivityTypeRepository
 {
     /// <summary>

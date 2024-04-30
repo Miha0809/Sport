@@ -1,6 +1,6 @@
-using Sport.API.Models;
-
 namespace Sport.API.Repositories.Interfaces;
+
+using Models;
 
 /// <summary>
 /// Інтерфейс репозіторія зображень.
@@ -11,7 +11,7 @@ public interface IImageRepository : IDisposable
     /// Зображення по посиланню.
     /// </summary>
     /// <param name="link">Посилання.</param>
-    Task<Image?> GetByLink(string link);
+    Task<Image?> GetByLinkAsync(string link);
     
     /// <summary>
     /// Змінити данні зображення.
@@ -32,10 +32,9 @@ public interface IImageRepository : IDisposable
     void RemoveRange(IList<Image> images);
 
     /// <summary>
-    /// 
+    /// Чи існує зображення.
     /// </summary>
-    /// <param name="link"></param>
-    /// <returns></returns>
+    /// <param name="link">Адрес зображення.</param>
     bool IsExists(string link);
     
     /// <summary>

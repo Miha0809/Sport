@@ -1,10 +1,12 @@
-using AutoMapper;
-using Sport.API.Models;
-using Sport.API.Models.DTOs;
-using Sport.API.Models.DTOs.Response.Activity;
-using Sport.API.Models.DTOs.Response.User;
+using Sport.API.Models.DTOs.Response.Image;
 
 namespace Sport.API.Profiles;
+
+using AutoMapper;
+
+using Models;
+using Models.DTOs.Response.Activity;
+using Models.DTOs.Response.User;
 
 /// <summary>
 /// Профіль маппера об'єктів.

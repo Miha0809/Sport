@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace Sport.API.Models;
+
+using Microsoft.AspNetCore.Identity;
 
 /// <summary>
 /// Користувач.
@@ -11,6 +11,7 @@ public class User : IdentityUser
     /// Ім'я.
     /// </summary>
     public string? FirstName { get; set; }    
+    
     /// <summary>
     /// Прізвище.
     /// </summary>

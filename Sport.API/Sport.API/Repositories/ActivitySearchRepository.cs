@@ -1,13 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using Sport.API.Contexts;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-
 namespace Sport.API.Repositories;
+
+using Microsoft.EntityFrameworkCore;
+
+using Contexts;
+using Models;
+using Interfaces;
 
 /// <summary>
 /// Репозіторі пошуку активності.
 /// </summary>
+/// <param name="context">Контекст БД.</param>
 public class ActivitySearchRepository(SportDbContext context) : IActivitySearchRepository
 {
     /// <summary>
@@ -16,6 +18,7 @@ public class ActivitySearchRepository(SportDbContext context) : IActivitySearchR
     public async Task<List<Activity>> GetAllAsync()
     {
         var activities = await context.Activities.ToListAsync();
+        
         return activities;
     }
 
@@ -26,6 +29,7 @@ public class ActivitySearchRepository(SportDbContext context) : IActivitySearchR
     public async Task<List<Activity>> GetAllByUserAsync(string email)
     {
         var activity = await context.Activities.Where(activity => activity.User.Email!.Equals(email)).ToListAsync();
+        
         return activity;
     }
 
@@ -36,6 +40,7 @@ public class ActivitySearchRepository(SportDbContext context) : IActivitySearchR
     public async Task<Activity?> GetByIdAsync(int id)
     {
         var activity = await context.Activities.FindAsync(id);
+        
         return activity;
     }
     

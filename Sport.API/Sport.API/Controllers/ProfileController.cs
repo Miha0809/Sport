@@ -1,10 +1,11 @@
+namespace Sport.API.Controllers;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Services.Interfaces;
 
-namespace Sport.API.Controllers;
+using Models.DTOs.Response.User;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер власного профілю.
@@ -27,12 +28,12 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
         {
             var userEmail = User.Identity!.Name!;
             var user = await profileService.ProfileAsync(userEmail);
-        
+            
             return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -52,9 +53,9 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
             
             return Ok(mapper.Map<UserShowPrivateDto>(userUpdate));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -70,12 +71,12 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
         {
             var userEmail = User.Identity!.Name!;
             await profileService.RemoveAsync(userEmail);
-
+            
             return RedirectToAction("Logout");
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -88,7 +89,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
     public IActionResult Logout()
     {
         HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
-
+        
         return Ok(StatusCodes.Status200OK);
     }
 }

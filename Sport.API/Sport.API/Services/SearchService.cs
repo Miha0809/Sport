@@ -1,10 +1,11 @@
-using System.Text.RegularExpressions;
-using Sport.API.Models;
-using Sport.API.Models.DTOs.Requests.Search;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services.Interfaces;
-
 namespace Sport.API.Services;
+
+using System.Text.RegularExpressions;
+
+using Sport.API.Repositories.Interfaces;
+using Models.DTOs.Requests.Search;
+using Interfaces;
+using Models;
 
 /// <summary>
 /// Сервіс пошуку.
@@ -16,7 +17,6 @@ public class SearchService(ISearchRepository searchRepository) : ISearchService
     /// Пошук користувача по електронній пошті.
     /// </summary>
     /// <param name="request">Запит</param>
-    /// <returns>Користувач з відповідною унікальною електронною поштою.</returns>
     public async Task<User?> EmailAsync(SearchByEmailRequest request)
     {
         if (!IsValidEmail(request.Email))
@@ -29,6 +29,10 @@ public class SearchService(ISearchRepository searchRepository) : ISearchService
         return userByEmail;
     }
 
+    /// <summary>
+    /// Перевіряє на валідність електронну пошту.
+    /// </summary>
+    /// <param name="email">Електронна пошта.</param>
     private bool IsValidEmail(string email)
     {
         return Regex.IsMatch(email, @"^\w+@\w{2,}\.\w{2,}$");
@@ -39,7 +43,6 @@ public class SearchService(ISearchRepository searchRepository) : ISearchService
     /// </summary>
     /// <param name="user">Інформація про авторизованого користувача.</param>
     /// <param name="request">Запит</param>
-    /// <returns>Всі користувачі з відповідним іменим та/або фамілею.</returns>
     public async Task<List<User>> FullNameAsync(User user, SearchByFullNameRequest request)
     {
         var fullName = request.FullName.Split(' ');

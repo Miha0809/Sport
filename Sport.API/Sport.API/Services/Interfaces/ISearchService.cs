@@ -1,8 +1,7 @@
-using System.Security.Claims;
-using Sport.API.Models;
-using Sport.API.Models.DTOs.Requests.Search;
-
 namespace Sport.API.Services.Interfaces;
+
+using Models;
+using Models.DTOs.Requests.Search;
 
 /// <summary>
 /// Інтерфейс сервісу пошуку.

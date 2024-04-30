@@ -1,17 +1,17 @@
-using Sport.API.Models;
-
 namespace Sport.API.Services.Interfaces;
 
+using Models;
+
 /// <summary>
-/// 
+/// Інтерфейс сервісу активності.
 /// </summary>
 public interface IActivityService
 {
     /// <summary>
-    /// 
+    /// Створення активності.
     /// </summary>
-    /// <param name="activity"></param>
-    /// <param name="email"></param>
+    /// <param name="activity">Активність.</param>
+    /// <param name="email">Електронна пошта користувача.</param>
     Task<Activity> CreateAsync(Activity activity, string email);
 
     /// <summary>

@@ -1,13 +1,14 @@
+namespace Sport.API.Controllers;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sport.API.Models;
-using Sport.API.Models.DTOs.Requests.Search;
-using Sport.API.Models.DTOs.Response.User;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Services.Interfaces;
 
-namespace Sport.API.Controllers;
+using Models;
+using Models.DTOs.Requests.Search;
+using Models.DTOs.Response.User;
+using Repositories.Interfaces;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер для пошуку користувачів.
@@ -30,11 +31,12 @@ public class SearchController(ISearchService searchService, IUserRepository user
         try
         {
             var user = await searchService.EmailAsync(request);
+            
             return Ok(mapper.Map<UserShowPublicDto>(user));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }
@@ -50,11 +52,12 @@ public class SearchController(ISearchService searchService, IUserRepository user
         {
             var user = await userRepository.GetUserAsync(User);
             var users = await searchService.FullNameAsync(user!, request);
+            
             return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(exception.Message);
             throw;
         }
     }

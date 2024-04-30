@@ -1,6 +1,6 @@
-using Sport.API.Models;
-
 namespace Sport.API.Repositories.Interfaces;
+
+using Models;
 
 /// <summary>
 /// Інтерфейс репозіторія профілю користувача.
@@ -17,7 +17,6 @@ public interface IProfileRepository : IDisposable
     /// Редагування профілю.
     /// </summary>
     /// <param name="user">Відредагований користувач.</param>
-    /// <returns></returns>
     void Update(User user);
     
     /// <summary>

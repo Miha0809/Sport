@@ -1,7 +1,7 @@
+namespace Sport.API.Models;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Sport.API.Models;
 
 /// <summary>
 /// Активність.
@@ -17,22 +17,22 @@ public class Activity
     /// <summary>
     /// Початок активності.
     /// </summary>
-    public DateTime Start { get; set; }
+    public required DateTime Start { get; set; }
     
     /// <summary>
     /// Кінець активності.
     /// </summary>
-    public DateTime End { get; set; }
+    public required DateTime End { get; set; }
     
     /// <summary>
     /// Дистанція у метрах.
     /// </summary>
-    public double Distance { get; set; }
+    public required double Distance { get; set; }
     
     /// <summary>
     /// Поточка швидкість.
     /// </summary>
-    public double Speed { get; set; }
+    public required double Speed { get; set; }
     
     /// <summary>
     /// Тип активності.
@@ -40,14 +40,15 @@ public class Activity
     public required string ActivityType { get; set; }
 
     /// <summary>
-    /// 
+    /// Ідентифікатор автора активності.
     /// </summary>
     public required string UserId { get; set; }
     
     /// <summary>
-    /// Власник активності.
+    /// Автор активності.
     /// </summary>
     [ForeignKey("UserId")]
     public virtual required User User { get; set; }
+    
     // TODO: Locations, comments, ?likes
 }

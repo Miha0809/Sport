@@ -1,9 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Sport.API.Models;
-using Sport.API.Repositories.Interfaces;
-using Sport.API.Contexts;
-
 namespace Sport.API.Repositories;
+
+using Microsoft.EntityFrameworkCore;
+
+using Models;
+using Interfaces;
+using Contexts;
 
 /// <summary>
 /// Репозіторі зображень.
@@ -15,8 +16,7 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     /// Зображення по посиланню.
     /// </summary>
     /// <param name="link">Посилання.</param>
-    /// <returns>Зображення по посиланню.</returns>
-    public async Task<Image?> GetByLink(string link)
+    public async Task<Image?> GetByLinkAsync(string link)
     {
         return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
     }
@@ -49,14 +49,14 @@ public sealed class ImageRepository(SportDbContext context) : IImageRepository
     }
 
     /// <summary>
-    /// 
+    /// Чи існує зображення.
     /// </summary>
-    /// <param name="link"></param>
-    /// <returns></returns>
+    /// <param name="link">Адрес зображення.</param>
     public bool IsExists(string link)
     {
         var image = context.Images.FirstOrDefault(image => image.Link.Equals(link));
         var isExists = image is not null;
+        
         return isExists;
     }
 
