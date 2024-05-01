@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 using Repositories.RepositoriesInterfaces;
 using Models.DTOs.Requests.Search;
-using Interfaces;
+using ServicesInterfaces;
 using Models;
 
 /// <summary>

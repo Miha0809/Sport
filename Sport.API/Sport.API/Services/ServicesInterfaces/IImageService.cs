@@ -1,4 +1,4 @@
-namespace Sport.API.Services.Interfaces;
+namespace Sport.API.Services.ServicesInterfaces;
 
 using Models;
 

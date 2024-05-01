@@ -8,7 +8,7 @@ using Models;
 using Models.DTOs.Requests.Search;
 using Models.DTOs.Response.User;
 using Repositories.RepositoriesInterfaces;
-using Services.Interfaces;
+using Services.ServicesInterfaces;
 
 /// <summary>
 /// Контроллер для пошуку користувачів.

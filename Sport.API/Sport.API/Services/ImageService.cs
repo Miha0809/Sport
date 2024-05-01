@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 using Repositories.RepositoriesInterfaces;
 using Models;
-using Interfaces;
+using ServicesInterfaces;
 
 /// <summary>
 /// Сервіс зображень.
@@ -39,7 +39,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     public async Task<User?> AddAsync(List<Image> images, string email)
     {
         var user = await searchRepository.GetUserByEmailAsync(email);
-        var validImages = images.Where(image => IsValidLinkImage(image.Link) && !imageRepository.IsExists(image.Link)).ToList();
+        var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link)).ToList();
         
         if (user is null || validImages.Count == 0)
         {
@@ -62,7 +62,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     public async Task<Image?> UpdateAsync(Image image, string oldLink)
     {
         var oldImage = await imageRepository.GetByLinkAsync(oldLink);
-        var isValidLink = IsValidLinkImage(image.Link);
+        var isValidLink = IsValidCorrectString(image.Link);
         
         if (oldImage is null || !isValidLink)
         {
@@ -107,7 +107,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     /// Перевіряє чи адресс є зображенням.
     /// </summary>
     /// <param name="link">Адрес зображення.</param>
-    private bool IsValidLinkImage(string link)
+    public bool IsValidCorrectString(string link)
     {
         return Regex.IsMatch(link, @"\.jpg$|\.jpeg$|\.svg$|\.png$");
     }

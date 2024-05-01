@@ -2,7 +2,7 @@ namespace Sport.API.Services;
 
 using Repositories.RepositoriesInterfaces;
 using Models;
-using Interfaces;
+using ServicesInterfaces;
 
 /// <summary>
 /// Сервіс активності.

@@ -3,7 +3,7 @@ namespace Sport.API.Services;
 using Repositories.RepositoriesInterfaces;
 using Models.DTOs.Response.User;
 using Models;
-using Interfaces;
+using ServicesInterfaces;
 
 /// <summary>
 /// Сервіс власного профілю.

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Models;
 using Models.DTOs.Response.User;
-using Services.Interfaces;
+using Services.ServicesInterfaces;
 
 /// <summary>
 /// Контроллер зображень для профілю.

@@ -9,7 +9,7 @@ using Sport.API.Repositories;
 using Sport.API.Repositories.RepositoriesInterfaces;
 using Sport.API.Contexts;
 using Sport.API.Services;
-using Sport.API.Services.Interfaces;
+using Sport.API.Services.ServicesInterfaces;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);

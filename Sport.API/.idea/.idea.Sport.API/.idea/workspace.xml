@@ -9,13 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fe6c7f1-aac1-4f9b-b79b-6f68e5f1df3b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IActivityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IActivitySearchRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivitySearchRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IActivityTypeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityTypeRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IImageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IImageRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IProfileRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IProfileRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/ISearchRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/ISearchRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IUserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IExists.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IValidWithRegex.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Sport.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sport.API/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityTypeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityTypeRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IImageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IImageRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +21,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="95593" />
+    <option name="totalTimeSeconds" value="96416" />
   </component>
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
@@ -58,7 +56,7 @@
     ".NET Project.Unnamed.executor": "Run",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "solid",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
