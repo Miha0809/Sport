@@ -1,9 +1,9 @@
 namespace Sport.API.Services;
 
-using Repositories.RepositoriesInterfaces;
+using Repositories.Interfaces;
 using Models.DTOs.Response.User;
 using Models;
-using ServicesInterfaces;
+using Interfaces;
 
 /// <summary>
 /// Сервіс власного профілю.

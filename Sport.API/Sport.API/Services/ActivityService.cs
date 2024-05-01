@@ -1,8 +1,8 @@
 namespace Sport.API.Services;
 
-using Repositories.RepositoriesInterfaces;
+using Repositories.Interfaces;
 using Models;
-using ServicesInterfaces;
+using Interfaces;
 
 /// <summary>
 /// Сервіс активності.

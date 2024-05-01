@@ -1,11 +1,11 @@
+using Sport.API.Interfaces.Services;
+
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
-
-using Interfaces;
-using Repositories.RepositoriesInterfaces;
+using Repositories.Interfaces;
 using Models;
-using ServicesInterfaces;
+using Interfaces;
 
 /// <summary>
 /// Сервіс зображень.

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTOs.Requests.Search;
 using Models.DTOs.Response.User;
-using Services.ServicesInterfaces;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер для пошуку користувачів.

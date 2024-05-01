@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Models.DTOs.Response.User;
-using Services.ServicesInterfaces;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер власного профілю.

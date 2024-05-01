@@ -1,6 +1,4 @@
-using Sport.API.Repositories.Interfaces;
-
-namespace Sport.API.Repositories.RepositoriesInterfaces;
+namespace Sport.API.Repositories.Interfaces;
 
 using Models;
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Models;
 using Contexts;
-using RepositoriesInterfaces;
+using Interfaces;
 
 /// <summary>
 /// Репозіторі пошуку користувачів.

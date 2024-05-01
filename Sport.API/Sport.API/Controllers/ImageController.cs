@@ -1,5 +1,3 @@
-using Sport.API.Models.DTOs.Response.Image;
-
 namespace Sport.API.Controllers;
 
 using AutoMapper;
@@ -8,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using Models;
 using Models.DTOs.Response.User;
-using Services.ServicesInterfaces;
+using Models.DTOs.Response.Image;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер зображень для профілю.

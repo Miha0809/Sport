@@ -1,7 +1,7 @@
 namespace Sport.API.Repositories;
 
 using Models;
-using RepositoriesInterfaces;
+using Interfaces;
 using Contexts;
 
 /// <summary>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Contexts;
 using Models;
-using RepositoriesInterfaces;
+using Interfaces;
 
 /// <summary>
 /// Репозіторі пошуку активності.

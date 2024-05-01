@@ -1,4 +1,4 @@
-namespace Sport.API.Services.Interfaces;
+namespace Sport.API.Interfaces.Services;
 
 /// <summary>
 /// Інтерфейс для перевірки валідності за допомогою регулярних виразиів.

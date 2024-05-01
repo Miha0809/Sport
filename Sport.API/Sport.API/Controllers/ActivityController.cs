@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Models;
 using Models.DTOs.Response.Activity;
-using Services.ServicesInterfaces;
+using Services.Interfaces;
 
 /// <summary>
 /// Контроллер активності.
