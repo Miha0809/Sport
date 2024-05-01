@@ -1,6 +1,6 @@
 namespace Sport.API.Services;
 
-using Sport.API.Repositories.Interfaces;
+using Repositories.Interfaces;
 using Models.DTOs.Response.User;
 using Models;
 using Interfaces;
@@ -11,7 +11,7 @@ using Interfaces;
 /// <param name="profileRepository">Репозіторі профілю користувача.</param>
 /// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ProfileService(IProfileRepository profileRepository, ISearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
+public class ProfileService(IProfileRepository profileRepository, IUserSearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
 {
     /// <summary>
     /// Інформація про профіль.
@@ -19,7 +19,7 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     /// <param name="email">Електронна пошта.</param>
     public async Task<User> ProfileAsync(string email)
     {
-        var user = await searchRepository.GetUserByEmailAsync(email);
+        var user = await searchRepository.UserByEmailAsync(email);
         
         return user!;
     }
@@ -31,7 +31,7 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     /// <param name="email">Електронна пошта.</param>
     public async Task<User?> UpdateAsync(UserUpdateDto? userUpdateDto, string email)
     {
-        var user = await searchRepository.GetUserByEmailAsync(email);
+        var user = await searchRepository.UserByEmailAsync(email);
         
         if (user is null || userUpdateDto is null)
         {
@@ -53,7 +53,7 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
     /// <param name="email">Електронна пошта.</param>
     public async Task<bool?> RemoveAsync(string email)
     {
-        var user = await searchRepository.GetUserByEmailAsync(email);
+        var user = await searchRepository.UserByEmailAsync(email);
         
         if (user is null)
         {
@@ -68,7 +68,7 @@ public class ProfileService(IProfileRepository profileRepository, ISearchReposit
         profileRepository.Remove(user);
         profileRepository.Save();
 
-        var isExistsUser = await searchRepository.GetUserByEmailAsync(email) is null;
+        var isExistsUser = await searchRepository.UserByEmailAsync(email) is null;
         
         return isExistsUser;
     }

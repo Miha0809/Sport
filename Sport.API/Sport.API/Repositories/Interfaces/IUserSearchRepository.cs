@@ -5,13 +5,13 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія пошуку.
 /// </summary>
-public interface ISearchRepository : IDisposable
+public interface IUserSearchRepository
 {
     /// <summary>
     /// Користувач по електронній пошті.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    Task<User?> GetUserByEmailAsync(string email);
+    Task<User?> UserByEmailAsync(string email);
     
     /// <summary>
     /// Користувача по імені та/або фамілії.
@@ -19,5 +19,5 @@ public interface ISearchRepository : IDisposable
     /// <param name="firstName">Ім'я.</param>
     /// <param name="lastName">Фамілія.</param>
     /// <param name="currentUserEmail">Електронна пошта поточного користувача.</param>
-    Task<List<User>> FindUsersByFullNameAsync(string firstName, string lastName, string currentUserEmail);
+    Task<List<User>> UsersByFullNameAsync(string firstName, string lastName, string currentUserEmail);
 }

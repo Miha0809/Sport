@@ -1,6 +1,6 @@
 namespace Sport.API.Services;
 
-using Sport.API.Repositories.Interfaces;
+using Repositories.Interfaces;
 using Models;
 using Interfaces;
 
@@ -11,7 +11,7 @@ using Interfaces;
 /// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
 /// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="profileRepository">Репозіторі профілю користувача.</param>
-public class ActivityService(IActivityTypeRepository activityTypeRepository, IActivitySearchRepository activitySearchRepository, ISearchRepository searchRepository, IProfileRepository profileRepository) : IActivityService
+public class ActivityService(IActivityTypeRepository activityTypeRepository, IActivitySearchRepository activitySearchRepository, IUserSearchRepository searchRepository, IProfileRepository profileRepository) : IActivityService
 {
     /// <summary>
     /// Створення активності.
@@ -21,7 +21,7 @@ public class ActivityService(IActivityTypeRepository activityTypeRepository, IAc
     /// <exception cref="NullReferenceException">Активності не існує з відповідним ідентифікатором.</exception>
     public async Task<Activity> CreateAsync(Activity activity, string email)
     {
-        var user =  await searchRepository.GetUserByEmailAsync(email);
+        var user =  await searchRepository.UserByEmailAsync(email);
 
         if (user is null)
         {

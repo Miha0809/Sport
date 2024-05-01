@@ -57,8 +57,7 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Repositories
-builder.Services.AddScoped<ISearchRepository, SearchRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserSearchRepository, UserSearchRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
@@ -66,7 +65,7 @@ builder.Services.AddScoped<IActivityTypeRepository, ActivityTypeRepository>();
 builder.Services.AddScoped<IActivitySearchRepository, ActivitySearchRepository>();
 
 // Services
-builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IUserSearchService, UserSearchService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();

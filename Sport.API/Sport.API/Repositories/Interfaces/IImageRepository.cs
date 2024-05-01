@@ -5,7 +5,7 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія зображень.
 /// </summary>
-public interface IImageRepository : IDisposable
+public interface IImageRepository : IDisposable, IExists
 {
     /// <summary>
     /// Зображення по посиланню.
@@ -30,12 +30,6 @@ public interface IImageRepository : IDisposable
     /// </summary>
     /// <param name="images">Зображення.</param>
     void RemoveRange(IList<Image> images);
-
-    /// <summary>
-    /// Чи існує зображення.
-    /// </summary>
-    /// <param name="link">Адрес зображення.</param>
-    bool IsExists(string link);
     
     /// <summary>
     /// Збереження змін.

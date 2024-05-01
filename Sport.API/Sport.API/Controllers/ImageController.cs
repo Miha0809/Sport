@@ -1,5 +1,3 @@
-using Sport.API.Models.DTOs.Response.Image;
-
 namespace Sport.API.Controllers;
 
 using AutoMapper;
@@ -8,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Models;
 using Models.DTOs.Response.User;
+using Models.DTOs.Response.Image;
 using Services.Interfaces;
 
 /// <summary>

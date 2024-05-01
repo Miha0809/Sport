@@ -7,30 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTOs.Requests.Search;
 using Models.DTOs.Response.User;
-using Repositories.Interfaces;
 using Services.Interfaces;
 
 /// <summary>
 /// Контроллер для пошуку користувачів.
 /// </summary>
-/// <param name="searchService">Репозіторі авторизованого користувача.</param>
-/// <param name="userRepository">Репозіторі авторизованого користувача.</param>
+/// <param name="userSearchService">Репозіторі авторизованого користувача.</param>
 /// <param name="mapper">Маппер об'єктів.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class SearchController(ISearchService searchService, IUserRepository userRepository, IMapper mapper) : Controller
+public class SearchController(IUserSearchService userSearchService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
     /// </summary>
     /// <param name="request">Електронна пошта.</param>
     [HttpPost("email")]
-    public async Task<IActionResult> Email([FromBody] SearchByEmailRequest request)
+    public async Task<IActionResult> ByEmail([FromBody] SearchByEmailRequest request)
     {
         try
         {
-            var user = await searchService.EmailAsync(request);
+            var user = await userSearchService.UserByEmailAsync(request);
             
             return Ok(mapper.Map<UserShowPublicDto>(user));
         }
@@ -46,12 +44,13 @@ public class SearchController(ISearchService searchService, IUserRepository user
     /// </summary>
     /// <param name="request">Ім'я та/або прізвище</param>
     [HttpPost("full_name")]
-    public async Task<IActionResult> FullName([FromBody] SearchByFullNameRequest request)
+    public async Task<IActionResult> ByFullName([FromBody] SearchByFullNameRequest request)
     {
         try
         {
-            var user = await userRepository.GetUserAsync(User);
-            var users = await searchService.FullNameAsync(user!, request);
+            var userEmail = User.Identity!.Name!;
+            var user = await userSearchService.UserByEmailAsync(userEmail);
+            var users = await userSearchService.UsersByFullNameAsync(user!, request);
             
             return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
         }

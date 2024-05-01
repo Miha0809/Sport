@@ -1,21 +1,22 @@
 namespace Sport.API.Repositories;
 
 using Microsoft.EntityFrameworkCore;
+
 using Models;
-using Interfaces;
 using Contexts;
+using Interfaces;
 
 /// <summary>
-/// Репозіторі пошуку.
+/// Репозіторі пошуку користувачів.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public sealed class SearchRepository(SportDbContext context) : ISearchRepository
+public class UserSearchRepository(SportDbContext context) : IUserSearchRepository
 {
     /// <summary>
     /// Користувач з відповідною електронною поштою.
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
-    public async Task<User?> GetUserByEmailAsync(string email)
+    public async Task<User?> UserByEmailAsync(string email)
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Email!.Equals(email));
 
@@ -28,7 +29,7 @@ public sealed class SearchRepository(SportDbContext context) : ISearchRepository
     /// <param name="firstName">Ім'я.</param>
     /// <param name="lastName">Фамілія.</param>
     /// <param name="currentUserEmail">Електронна пошта поточного користувача.</param>
-    public async Task<List<User>> FindUsersByFullNameAsync(string firstName, string lastName, string currentUserEmail)
+    public async Task<List<User>> UsersByFullNameAsync(string firstName, string lastName, string currentUserEmail)
     {
         var users = await context.Users
             .Where(user =>
