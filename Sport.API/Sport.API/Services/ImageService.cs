@@ -2,6 +2,7 @@ namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
 
+using Interfaces;
 using Repositories.RepositoriesInterfaces;
 using Models;
 using ServicesInterfaces;
@@ -11,7 +12,7 @@ using ServicesInterfaces;
 /// </summary>
 /// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ImageService(ISearchRepository searchRepository, IImageRepository imageRepository) : IImageService
+public class ImageService(IUserSearchRepository searchRepository, IImageRepository imageRepository) : IImageService, IValidWithRegex
 {
     /// <summary>
     /// Всі зображення авторизованого користувача.
@@ -19,7 +20,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
     public async Task<List<Image>?> GetImagesAsync(string email)
     {
-        var user = await searchRepository.GetUserByEmailAsync(email);
+        var user = await searchRepository.UserByEmailAsync(email);
 
         if (user is null)
         {
@@ -38,7 +39,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
     public async Task<User?> AddAsync(List<Image> images, string email)
     {
-        var user = await searchRepository.GetUserByEmailAsync(email);
+        var user = await searchRepository.UserByEmailAsync(email);
         var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link)).ToList();
         
         if (user is null || validImages.Count == 0)
@@ -49,7 +50,7 @@ public class ImageService(ISearchRepository searchRepository, IImageRepository i
         user.Images!.AddRange(validImages);
         imageRepository.Save();
 
-        user = await searchRepository.GetUserByEmailAsync(email);
+        user = await searchRepository.UserByEmailAsync(email);
         
         return user;
     }

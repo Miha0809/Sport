@@ -9,11 +9,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fe6c7f1-aac1-4f9b-b79b-6f68e5f1df3b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IExists.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/Interfaces/IValidWithRegex.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IUserSearchRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Repositories/UserSearchRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Services/Interfaces/IValidWithRegex.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Services/ServicesInterfaces/IUserSearchService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sport.API/Services/UserSearchService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sport.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sport.API/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityTypeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IActivityTypeRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IImageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IImageRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Controllers/SearchController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Controllers/SearchController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/ISearchRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/RepositoriesInterfaces/IUserRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/SearchRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Repositories/UserRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Services/ActivityService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Services/ActivityService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Services/ImageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Services/ImageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Services/ProfileService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sport.API/Services/ProfileService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Services/SearchService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sport.API/Services/ServicesInterfaces/ISearchService.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +33,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="96416" />
+    <option name="totalTimeSeconds" value="98198" />
   </component>
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
