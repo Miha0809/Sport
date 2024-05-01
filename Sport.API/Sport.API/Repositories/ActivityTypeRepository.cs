@@ -1,7 +1,7 @@
 namespace Sport.API.Repositories;
 
 using Contexts;
-using Interfaces;
+using RepositoriesInterfaces;
 
 /// <summary>
 /// Інтерфейс репозіторія для типу активності.

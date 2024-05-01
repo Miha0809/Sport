@@ -2,7 +2,7 @@ namespace Sport.API.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Interfaces;
+using RepositoriesInterfaces;
 using Contexts;
 
 /// <summary>

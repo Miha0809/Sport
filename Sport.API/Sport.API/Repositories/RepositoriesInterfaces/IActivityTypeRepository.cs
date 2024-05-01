@@ -1,4 +1,4 @@
-namespace Sport.API.Repositories.Interfaces;
+namespace Sport.API.Repositories.RepositoriesInterfaces;
 
 /// <summary>
 /// Інтерфейс репозіторія для типу активності.

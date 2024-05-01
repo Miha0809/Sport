@@ -4,7 +4,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Contexts;
 using Models;
-using Interfaces;
+using RepositoriesInterfaces;
 
 /// <summary>
 /// Репозіторі користувача.

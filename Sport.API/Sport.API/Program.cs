@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 using Sport.API.Models;
 using Sport.API.Profiles;
 using Sport.API.Repositories;
-using Sport.API.Repositories.Interfaces;
+using Sport.API.Repositories.RepositoriesInterfaces;
 using Sport.API.Contexts;
 using Sport.API.Services;
 using Sport.API.Services.Interfaces;

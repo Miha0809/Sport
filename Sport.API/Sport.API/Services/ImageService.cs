@@ -2,7 +2,7 @@ namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
 
-using Sport.API.Repositories.Interfaces;
+using Repositories.RepositoriesInterfaces;
 using Models;
 using Interfaces;
 

@@ -1,6 +1,6 @@
 namespace Sport.API.Services;
 
-using Sport.API.Repositories.Interfaces;
+using Repositories.RepositoriesInterfaces;
 using Models.DTOs.Response.User;
 using Models;
 using Interfaces;

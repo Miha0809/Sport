@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTOs.Requests.Search;
 using Models.DTOs.Response.User;
-using Repositories.Interfaces;
+using Repositories.RepositoriesInterfaces;
 using Services.Interfaces;
 
 /// <summary>
