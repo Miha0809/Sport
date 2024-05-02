@@ -11,7 +11,10 @@ using Interfaces;
 /// <param name="userRepository">Репозіторі профілю користувача.</param>
 /// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ProfileService(IUserRepository userRepository, IUserSearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
+public class ProfileService(
+    IUserRepository userRepository,
+    IUserSearchRepository searchRepository,
+    IImageRepository imageRepository) : IProfileService
 {
     /// <summary>
     /// Інформація про профіль.

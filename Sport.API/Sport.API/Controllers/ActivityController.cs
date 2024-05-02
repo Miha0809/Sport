@@ -1,4 +1,3 @@
-
 namespace Sport.API.Controllers;
 
 using AutoMapper;
@@ -40,7 +39,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         {
             var activityMapping = mapper.Map<Activity>(activityDto);
             var activity = await activityService.CreateAsync(activityMapping, User.Identity!.Name!);
-            
+
             return Ok(mapper.Map<ActivityShowPublicDto>(activity));
         }
         catch (Exception exception)
@@ -60,7 +59,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         try
         {
             var userEmail = User.Identity!.Name!;
-            var locationMapping = mapper.Map<LocationDto, Location>(activityUpdateDto.Location);
+            var locationMapping = mapper.Map<LocationUpdateDto, Location>(activityUpdateDto.Location);
             var activity = await activityService.UpdateAsync(activityUpdateDto, locationMapping, userEmail);
 
             return Ok(mapper.Map<ActivityShowPublicDto>(activity));
@@ -71,7 +70,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
             throw;
         }
     }
-    
+
     /// <summary>
     /// Всі активності.
     /// </summary>
@@ -81,7 +80,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         try
         {
             var activities = await activityService.GetAllAsync();
-            
+
             return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
         }
         catch (Exception exception)
@@ -101,7 +100,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         try
         {
             var activityById = await activityService.GetByIdAsync(id);
-            
+
             return Ok(mapper.Map<ActivityShowPublicDto>(activityById));
         }
         catch (Exception exception)
@@ -121,7 +120,7 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         {
             var email = User.Identity!.Name!;
             var activities = await activityService.GetAllByUserAsync(email);
-            
+
             return Ok(mapper.Map<List<Activity>, List<ActivityShowPublicDto>>(activities));
         }
         catch (Exception exception)

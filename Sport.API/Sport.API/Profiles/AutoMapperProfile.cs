@@ -25,7 +25,8 @@ public class AutoMapperProfile : Profile
         CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
         CreateMap<Activity, ActivityCreateDto>().ReverseMap();
         CreateMap<Activity, ActivityShowPublicDto>();
-        CreateMap<Location, LocationDto>().ReverseMap();
         CreateMap<Activity, ActivityUpdateDto>();
+        CreateMap<Location, LocationUpdateDto>().ReverseMap();
+        CreateMap<Location, LocationShowDto>();
     }
 }

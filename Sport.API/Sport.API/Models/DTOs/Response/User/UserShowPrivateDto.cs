@@ -1,6 +1,7 @@
-using Sport.API.Models.DTOs.Response.Image;
-
 namespace Sport.API.Models.DTOs.Response.User;
+
+using Activity;
+using Image;
 
 /// <summary>
 /// DTO користувача для приватної оглядання.
@@ -21,15 +22,11 @@ public class UserShowPrivateDto
     /// Електрона скринька.
     /// </summary>
     public required string Email { get; set; }
+    
     /// <summary>
     /// Чи підтверджена електрона скринька.
     /// </summary>
     public required bool EmailConfirmed { get; set; }
-    
-    /// <summary>
-    /// Багато зображення.
-    /// </summary>
-    public List<ImageDto>? Images { get; set; }
     
     /// <summary>
     /// Номер мобільного телефону.
@@ -45,4 +42,14 @@ public class UserShowPrivateDto
     /// Чи включена двоетапна перевірка.
     /// </summary>
     public required bool TwoFactorEnabled { get; set; }
+    
+    /// <summary>
+    /// Багато зображення.
+    /// </summary>
+    public List<ImageDto>? Images { get; set; }
+    
+    /// <summary>
+    /// Всі активності користуваача.
+    /// </summary>
+    public List<ActivityShowPublicDto>? Activities { get; set; }
 }

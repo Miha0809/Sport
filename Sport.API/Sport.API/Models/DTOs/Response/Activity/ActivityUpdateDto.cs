@@ -20,5 +20,5 @@ public class ActivityUpdateDto
     /// <summary>
     /// Точна локація активності.
     /// </summary>
-    public virtual required LocationDto Location { get; set; }
+    public virtual required LocationUpdateDto Location { get; set; }
 }

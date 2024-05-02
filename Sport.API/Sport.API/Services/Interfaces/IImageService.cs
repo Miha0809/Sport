@@ -11,7 +11,7 @@ public interface IImageService
     /// Всі зображення авторизованого користувача.
     /// </summary>
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
-    Task<List<Image>?> GetImagesAsync(string email);
+    Task<List<Image>> GetImagesAsync(string email);
 
     /// <summary>
     /// Добавити зображення для авторизованого користувача.

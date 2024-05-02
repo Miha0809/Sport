@@ -13,20 +13,10 @@ using Contexts;
 public sealed class ImageRepository(SportDbContext context) : IImageRepository
 {
     /// <summary>
-    /// Зображення по посиланню.
-    /// </summary>
-    /// <param name="link">Посилання.</param>
-    public async Task<Image?> GetByLinkAsync(string link)
-    {
-        return await context.Images.FirstOrDefaultAsync(image => image.Link.Equals(link));
-    }
-
-    /// <summary>
     /// Добавлення зображення до користувача.
     /// </summary>
     /// <param name="images">Зображення.</param>
-    /// <param name="email">Електронна пошта авторизованого користувача.</param>
-    public void Create(List<Image> images, string email)
+    public void Create(List<Image> images)
     {
         context.Images.AddRange(images);
     }

@@ -9,10 +9,10 @@ using Interfaces;
 /// <summary>
 /// Сервіс активності.
 /// </summary>
-/// <param name="activityRepository"></param>
+/// <param name="activityRepository">Репозіторі активності.</param>
 /// <param name="activityTypeRepository">Інтерфейс репозіторія для типу активності.</param>
 /// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
-/// <param name="userSearchRepository">Репозіторі пошуку користувача.</param>
+/// <param name="userSearchRepository">Репозіторі пошуку користувачів/користувача.</param>
 public class ActivityService(
     IActivityRepository activityRepository,
     IActivityTypeRepository activityTypeRepository,

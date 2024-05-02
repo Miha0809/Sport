@@ -1,10 +1,15 @@
 namespace Sport.API.Models.DTOs.Response.Location;
 
 /// <summary>
-/// DTO локації.
+/// DTO локації для показу.
 /// </summary>
-public class LocationDto
+public class LocationShowDto
 {
+    /// <summary>
+    /// Поточний час.
+    /// </summary>
+    public DateTime DateTime { get; set; }
+    
     /// <summary>
     /// Ширина (X).
     /// </summary>

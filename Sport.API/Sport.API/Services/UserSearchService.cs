@@ -1,9 +1,9 @@
-using Sport.API.Interfaces.Services;
 
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
 
+using Sport.API.Interfaces.Services;
 using Repositories.Interfaces;
 using Models.DTOs.Requests.Search;
 using Interfaces;

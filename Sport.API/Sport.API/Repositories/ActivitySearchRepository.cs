@@ -10,7 +10,7 @@ using Interfaces;
 /// Репозіторі пошуку активності.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-/// <param name="userSearchRepository"></param>
+/// <param name="userSearchRepository">Репозіторі пошуку користувачів/користувача.</param>
 public class ActivitySearchRepository(SportDbContext context, IUserSearchRepository userSearchRepository) : IActivitySearchRepository
 {
     /// <summary>
@@ -53,8 +53,9 @@ public class ActivitySearchRepository(SportDbContext context, IUserSearchReposit
     public async Task<Activity?> GetByIdAndUserAsync(int id, string email)
     {
         var user = await userSearchRepository.UserByEmailAsync(email);
-        var activity = user?.Activities!.FirstOrDefault(activity1 => activity1.Id.Equals(id));
-
+        // var activity = user?.Activities!.FirstOrDefault(activity1 => activity1.Id.Equals(id));
+        var activity = await context.Activities.FirstOrDefaultAsync(activity1 => activity1.User.Email!.Equals(user!.Email));
+        
         return activity;
     }
 }

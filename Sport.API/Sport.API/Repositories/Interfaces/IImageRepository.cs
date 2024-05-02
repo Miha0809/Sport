@@ -9,17 +9,10 @@ using Models;
 public interface IImageRepository : ISave
 {
     /// <summary>
-    /// Зображення по посиланню.
-    /// </summary>
-    /// <param name="link">Посилання.</param>
-    Task<Image?> GetByLinkAsync(string link);
-
-    /// <summary>
     /// Добавлення зображення до користувача.
     /// </summary>
     /// <param name="images">Зображення.</param>
-    /// <param name="email">Електронна пошта авторизованого користувача.</param>
-    void Create(List<Image> images, string email);
+    void Create(List<Image> images);
     
     /// <summary>
     /// Змінити данні зображення.
