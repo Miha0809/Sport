@@ -58,7 +58,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Repositories
 builder.Services.AddScoped<IUserSearchRepository, UserSearchRepository>();
-builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IActivityTypeRepository, ActivityTypeRepository>();

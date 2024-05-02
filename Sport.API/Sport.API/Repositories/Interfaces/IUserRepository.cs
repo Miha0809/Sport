@@ -5,7 +5,7 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія профілю користувача.
 /// </summary>
-public interface IProfileRepository : IDisposable
+public interface IUserRepository : IDisposable
 {
     /// <summary>
     /// Видалити профіль.

@@ -14,13 +14,13 @@ using Interfaces;
 /// <param name="activityTypeRepository">Інтерфейс репозіторія для типу активності.</param>
 /// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
 /// <param name="userSearchRepository">Репозіторі пошуку користувача.</param>
-/// <param name="profileRepository">Репозіторі профілю користувача.</param>
+/// <param name="userRepository">Репозіторі профілю користувача.</param>
 public class ActivityService(
     IActivityRepository activityRepository,
     IActivityTypeRepository activityTypeRepository,
     IActivitySearchRepository activitySearchRepository,
     IUserSearchRepository userSearchRepository,
-    IProfileRepository profileRepository) : IActivityService
+    IUserRepository userRepository) : IActivityService
 {
     /// <summary>
     /// Створення активності.
@@ -48,8 +48,8 @@ public class ActivityService(
 
         user.Activities!.Add(activityWithMetrics);
 
-        profileRepository.Update(user);
-        profileRepository.Save();
+        userRepository.Update(user);
+        userRepository.Save();
 
         return activity;
     }

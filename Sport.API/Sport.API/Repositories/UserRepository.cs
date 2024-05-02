@@ -8,7 +8,7 @@ using Contexts;
 /// Репозіторі профілю користувача.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public sealed class ProfileRepository(SportDbContext context) : IProfileRepository
+public sealed class UserRepository(SportDbContext context) : IUserRepository
 {
     /// <summary>
     /// Видалити профіль.

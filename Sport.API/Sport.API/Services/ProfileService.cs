@@ -8,10 +8,10 @@ using Interfaces;
 /// <summary>
 /// Сервіс власного профілю.
 /// </summary>
-/// <param name="profileRepository">Репозіторі профілю користувача.</param>
+/// <param name="userRepository">Репозіторі профілю користувача.</param>
 /// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ProfileService(IProfileRepository profileRepository, IUserSearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
+public class ProfileService(IUserRepository userRepository, IUserSearchRepository searchRepository, IImageRepository imageRepository) : IProfileService
 {
     /// <summary>
     /// Інформація про профіль.
@@ -41,8 +41,8 @@ public class ProfileService(IProfileRepository profileRepository, IUserSearchRep
         user.FirstName = userUpdateDto.FirstName;
         user.LastName = userUpdateDto.LastName;
 
-        profileRepository.Update(user);
-        profileRepository.Save();
+        userRepository.Update(user);
+        userRepository.Save();
 
         return user;
     }
@@ -65,8 +65,8 @@ public class ProfileService(IProfileRepository profileRepository, IUserSearchRep
             imageRepository.RemoveRange(user.Images);
         }
         
-        profileRepository.Remove(user);
-        profileRepository.Save();
+        userRepository.Remove(user);
+        userRepository.Save();
 
         var isExistsUser = await searchRepository.UserByEmailAsync(email) is null;
         
