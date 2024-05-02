@@ -6,28 +6,26 @@ using Repositories.Interfaces;
 using Models;
 using Interfaces;
 
-
 /// <summary>
 /// Сервіс активності.
 /// </summary>
-/// <param name="activityRepository"></param>
+/// <param name="activityRepository">Репозіторі активності.</param>
 /// <param name="activityTypeRepository">Інтерфейс репозіторія для типу активності.</param>
 /// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
-/// <param name="userSearchRepository">Репозіторі пошуку користувача.</param>
-/// <param name="profileRepository">Репозіторі профілю користувача.</param>
+/// <param name="userSearchRepository">Репозіторі пошуку користувачів/користувача.</param>
 public class ActivityService(
     IActivityRepository activityRepository,
     IActivityTypeRepository activityTypeRepository,
     IActivitySearchRepository activitySearchRepository,
-    IUserSearchRepository userSearchRepository,
-    IProfileRepository profileRepository) : IActivityService
+    IUserSearchRepository userSearchRepository) : IActivityService
 {
+
     /// <summary>
     /// Створення активності.
     /// </summary>
     /// <param name="activity">Активність.</param>
     /// <param name="email">Електронна пошта користувача.</param>
-    /// <exception cref="NullReferenceException">Активності не існує з відповідним ідентифікатором.</exception>
+    /// <exception cref="ArgumentNullException">Активності не існує з відповідним ідентифікатором.</exception>
     public async Task<Activity> CreateAsync(Activity activity, string email)
     {
         var user = await userSearchRepository.UserByEmailAsync(email);
@@ -46,11 +44,12 @@ public class ActivityService(
 
         var activityWithMetrics = CalculateMetrics(activity);
 
-        user.Activities!.Add(activityWithMetrics);
-
-        profileRepository.Update(user);
-        profileRepository.Save();
-
+        activityWithMetrics.UserId = user.Id;
+        activityWithMetrics.User = user;
+        
+        activityRepository.Create(activityWithMetrics);
+        activityRepository.Save();
+        
         return activity;
     }
 
@@ -60,6 +59,7 @@ public class ActivityService(
     /// <param name="activityUpdateDto">Активність</param>
     /// <param name="location">Поточна локація.</param>
     /// <param name="email">Електронна пошта авторизованого користувача.</param>
+    /// <exception cref="ArgumentNullException">Активності не існує.</exception>
     public async Task<Activity> UpdateAsync(ActivityUpdateDto activityUpdateDto, Location location, string email)
     {
         var activity = await activitySearchRepository.GetByIdAndUserAsync(activityUpdateDto.Id, email);
@@ -107,8 +107,8 @@ public class ActivityService(
 
         if (time > 0)
         {
-            var hours = time / (3600000.0 * 10000);
-            speed = activity.Distance / hours;
+            var minutes = TimeSpan.FromTicks(time).TotalMinutes;
+            speed = activity.Distance / minutes;
         }
 
         activity.Speed = speed;
@@ -131,7 +131,7 @@ public class ActivityService(
     /// Активність по ідентифікатору.
     /// </summary>
     /// <param name="id">Ідентифікатор активності.</param>
-    /// <exception cref="NullReferenceException">Активності не існує з відповідним ідентифікатором.</exception>
+    /// <exception cref="ArgumentNullException">Активності не існує з відповідним ідентифікатором.</exception>
     public async Task<Activity> GetByIdAsync(int id)
     {
         var activity = await activitySearchRepository.GetByIdAsync(id);

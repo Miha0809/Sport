@@ -1,5 +1,3 @@
-using Sport.API.Interfaces.Services;
-
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
@@ -10,26 +8,23 @@ using Interfaces;
 /// <summary>
 /// Сервіс зображень.
 /// </summary>
-/// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ImageService(IUserSearchRepository searchRepository, IImageRepository imageRepository) : IImageService, IValidWithRegex
+/// <param name="imageSearchRepository">Репозіторі пошуку зображень.</param>
+/// <param name="userSearchRepository">Репозіторі пошуку користувачів/користувача.</param>
+public class ImageService(
+    IImageRepository imageRepository,
+    IImageSearchRepository imageSearchRepository,
+    IUserSearchRepository userSearchRepository) : IImageService
 {
     /// <summary>
     /// Всі зображення авторизованого користувача.
     /// </summary>
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
-    public async Task<List<Image>?> GetImagesAsync(string email)
+    public async Task<List<Image>> GetImagesAsync(string email)
     {
-        var user = await searchRepository.UserByEmailAsync(email);
+        var images = await imageSearchRepository.ImagesAsync(email);
 
-        if (user is null)
-        {
-            return null;
-        }
-        
-        var userImages = user.Images!;
-
-        return userImages;
+        return images;
     }
 
     /// <summary>
@@ -37,22 +32,23 @@ public class ImageService(IUserSearchRepository searchRepository, IImageReposito
     /// </summary>
     /// <param name="images">Зображення.</param>
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
-    public async Task<User?> AddAsync(List<Image> images, string email)
+    public async Task<List<Image>> AddAsync(List<Image> images, string email)
     {
-        var user = await searchRepository.UserByEmailAsync(email);
-        var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link)).ToList();
-        
+        var user = await userSearchRepository.UserByEmailAsync(email);
+        var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link, email)).ToList();
+
         if (user is null || validImages.Count == 0)
         {
-            return null;
+            return null!;
         }
 
-        user.Images!.AddRange(validImages);
+        validImages.ForEach(image => image.UserId = user.Id);
+        validImages.ForEach(image => image.User = user);
+
+        imageRepository.Create(validImages);
         imageRepository.Save();
 
-        user = await searchRepository.UserByEmailAsync(email);
-        
-        return user;
+        return validImages;
     }
 
     /// <summary>
@@ -60,18 +56,18 @@ public class ImageService(IUserSearchRepository searchRepository, IImageReposito
     /// </summary>
     /// <param name="image">Зображення.</param>
     /// <param name="oldLink">Старий адрес зображженя.</param>
-    public async Task<Image?> UpdateAsync(Image image, string oldLink)
+    public async Task<Image> UpdateAsync(Image image, string oldLink)
     {
-        var oldImage = await imageRepository.GetByLinkAsync(oldLink);
+        var oldImage = await imageSearchRepository.GetByLinkAsync(oldLink);
         var isValidLink = IsValidCorrectString(image.Link);
-        
+
         if (oldImage is null || !isValidLink)
         {
-            return null;
+            throw new ArgumentNullException(nameof(oldImage), "Image is not correct.");
         }
 
         oldImage.Link = image.Link;
-        
+
         imageRepository.Update(oldImage);
         imageRepository.Save();
 
@@ -86,21 +82,21 @@ public class ImageService(IUserSearchRepository searchRepository, IImageReposito
     {
         if (string.IsNullOrWhiteSpace(link))
         {
-            return null;
+            throw new InvalidDataException($"{nameof(link)} is empty or white space.");
         }
 
-        var image = await imageRepository.GetByLinkAsync(link);
+        var image = await imageSearchRepository.GetByLinkAsync(link);
 
         if (image == null)
         {
-            return null;
+            throw new ArgumentNullException(nameof(image), "Image is null");
         }
 
         imageRepository.Remove(image);
         imageRepository.Save();
 
-        var isExistsImage = await imageRepository.GetByLinkAsync(link) is null;
-        
+        var isExistsImage = await imageSearchRepository.GetByLinkAsync(link) is null;
+
         return isExistsImage;
     }
 

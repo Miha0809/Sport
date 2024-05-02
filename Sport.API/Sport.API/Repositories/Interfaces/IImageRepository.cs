@@ -1,17 +1,18 @@
 namespace Sport.API.Repositories.Interfaces;
 
+using Sport.API.Interfaces.Repositories;
 using Models;
 
 /// <summary>
 /// Інтерфейс репозіторія зображень.
 /// </summary>
-public interface IImageRepository : IDisposable, IExists
+public interface IImageRepository : ISave
 {
     /// <summary>
-    /// Зображення по посиланню.
+    /// Добавлення зображення до користувача.
     /// </summary>
-    /// <param name="link">Посилання.</param>
-    Task<Image?> GetByLinkAsync(string link);
+    /// <param name="images">Зображення.</param>
+    void Create(List<Image> images);
     
     /// <summary>
     /// Змінити данні зображення.
@@ -32,7 +33,9 @@ public interface IImageRepository : IDisposable, IExists
     void RemoveRange(IList<Image> images);
     
     /// <summary>
-    /// Збереження змін.
+    /// Чи інсує сутність.
     /// </summary>
-    void Save();
+    /// <param name="link">Адрес зображення.</param>
+    /// <param name="email">Електронна пошта атворизованого користувача.</param>
+    bool IsExists(string link, string email);
 }

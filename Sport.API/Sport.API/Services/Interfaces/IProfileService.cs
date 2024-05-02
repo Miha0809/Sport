@@ -1,12 +1,13 @@
 namespace Sport.API.Services.Interfaces;
 
+using Sport.API.Interfaces.Services;
 using Models;
 using Models.DTOs.Response.User;
 
 /// <summary>
 /// Інтерфейс сервісу профілю авторизованого користувача.
 /// </summary>
-public interface IProfileService
+public interface IProfileService : IValidWithRegex
 {
     /// <summary>
     /// Інформація про профіль.

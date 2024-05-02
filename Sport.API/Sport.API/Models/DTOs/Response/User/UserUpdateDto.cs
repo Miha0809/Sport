@@ -16,4 +16,10 @@ public class UserUpdateDto
     /// </summary>
     /// <example>Full</example>
     public required string LastName { get; set; }
+    
+    /// <summary>
+    /// Номер телефону.
+    /// </summary>
+    /// <example>+123456789</example>
+    public string? PhoneNumber { get; set; }
 }

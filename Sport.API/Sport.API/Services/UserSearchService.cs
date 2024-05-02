@@ -1,5 +1,3 @@
-using Sport.API.Interfaces.Services;
-
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
@@ -13,7 +11,7 @@ using Models;
 /// Сервіс пошуку.
 /// </summary>
 /// <param name="userSearchRepository">Репозіторі пошуку.</param>
-public class UserSearchService(IUserSearchRepository userSearchRepository) : IUserSearchService, IValidWithRegex
+public class UserSearchService(IUserSearchRepository userSearchRepository) : IUserSearchService
 {
     /// <summary>
     /// Отримати дані авторизованого користувача.
@@ -23,7 +21,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     {
         if (!IsValidCorrectString(email))
         {
-            return null;
+            throw new ArgumentNullException(nameof(email), "Emails is not valid.");
         }
 
         var user = await userSearchRepository.UserByEmailAsync(email);
@@ -39,7 +37,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     {
         if (!IsValidCorrectString(request.Email))
         {
-            return null;
+            throw new ArgumentNullException(nameof(request.Email), "Emails is not valid.");
         }
         
         var user = await userSearchRepository.UserByEmailAsync(request.Email);

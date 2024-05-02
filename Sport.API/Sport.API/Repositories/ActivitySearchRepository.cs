@@ -10,7 +10,7 @@ using Interfaces;
 /// Репозіторі пошуку активності.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-/// <param name="userSearchRepository"></param>
+/// <param name="userSearchRepository">Репозіторі пошуку користувачів/користувача.</param>
 public class ActivitySearchRepository(SportDbContext context, IUserSearchRepository userSearchRepository) : IActivitySearchRepository
 {
     /// <summary>
@@ -53,36 +53,9 @@ public class ActivitySearchRepository(SportDbContext context, IUserSearchReposit
     public async Task<Activity?> GetByIdAndUserAsync(int id, string email)
     {
         var user = await userSearchRepository.UserByEmailAsync(email);
-        var activity = user?.Activities!.FirstOrDefault(activity1 => activity1.Id.Equals(id));
-
-        return activity;
-    }
-
-    private bool _disposed;
-
-    /// <summary>
-    /// Звільнення ресурсів.
-    /// </summary>
-    /// <param name="disposing">Стан.</param>
-    private void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-        }
+        // var activity = user?.Activities!.FirstOrDefault(activity1 => activity1.Id.Equals(id));
+        var activity = await context.Activities.FirstOrDefaultAsync(activity1 => activity1.User.Email!.Equals(user!.Email));
         
-        _disposed = true;
-    }
-
-    /// <summary>
-    /// Звільнення ресурсів.
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        return activity;
     }
 }

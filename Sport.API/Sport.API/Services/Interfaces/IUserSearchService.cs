@@ -1,12 +1,13 @@
 namespace Sport.API.Services.Interfaces;
 
-using Models;
+using Sport.API.Interfaces.Services;
 using Models.DTOs.Requests.Search;
+using Models;
 
 /// <summary>
 /// Інтерфейс сервісу пошуку.
 /// </summary>
-public interface IUserSearchService
+public interface IUserSearchService : IValidWithRegex
 {
     /// <summary>
     /// Отримати дані авторизованого користувача.

@@ -1,11 +1,12 @@
 namespace Sport.API.Repositories.Interfaces;
 
+using Sport.API.Interfaces.Repositories;
 using Models;
 
 /// <summary>
 /// Інтерфейс репозіторія активності.
 /// </summary>
-public interface IActivityRepository : IDisposable
+public interface IActivityRepository : ISave
 {
     /// <summary>
     /// Створення активності.
@@ -24,9 +25,4 @@ public interface IActivityRepository : IDisposable
     /// </summary>
     /// <param name="activity">Активність.</param>
     void Remove(Activity activity);
-
-    /// <summary>
-    /// Збереження змін.
-    /// </summary>
-    void Save();
 }
