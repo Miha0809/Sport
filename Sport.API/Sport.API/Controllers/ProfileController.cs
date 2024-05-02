@@ -82,7 +82,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
     }
 
     /// <summary>
-    /// Визід із профіля.
+    /// Вихід із профіля.
     /// </summary>
     /// <returns></returns>
     [HttpDelete("/logout")]
