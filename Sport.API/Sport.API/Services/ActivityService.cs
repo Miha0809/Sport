@@ -6,7 +6,6 @@ using Repositories.Interfaces;
 using Models;
 using Interfaces;
 
-
 /// <summary>
 /// Сервіс активності.
 /// </summary>
@@ -14,13 +13,11 @@ using Interfaces;
 /// <param name="activityTypeRepository">Інтерфейс репозіторія для типу активності.</param>
 /// <param name="activitySearchRepository">Репозіторі пошуку активності.</param>
 /// <param name="userSearchRepository">Репозіторі пошуку користувача.</param>
-/// <param name="userRepository">Репозіторі профілю користувача.</param>
 public class ActivityService(
     IActivityRepository activityRepository,
     IActivityTypeRepository activityTypeRepository,
     IActivitySearchRepository activitySearchRepository,
-    IUserSearchRepository userSearchRepository,
-    IUserRepository userRepository) : IActivityService
+    IUserSearchRepository userSearchRepository) : IActivityService
 {
     /// <summary>
     /// Створення активності.
@@ -46,11 +43,12 @@ public class ActivityService(
 
         var activityWithMetrics = CalculateMetrics(activity);
 
-        user.Activities!.Add(activityWithMetrics);
-
-        userRepository.Update(user);
-        userRepository.Save();
-
+        activityWithMetrics.UserId = user.Id;
+        activityWithMetrics.User = user;
+        
+        activityRepository.Create(activityWithMetrics);
+        activityRepository.Save();
+        
         return activity;
     }
 
@@ -107,8 +105,8 @@ public class ActivityService(
 
         if (time > 0)
         {
-            var hours = time / (3600000.0 * 10000);
-            speed = activity.Distance / hours;
+            var minutes = TimeSpan.FromTicks(time).TotalMinutes;
+            speed = activity.Distance / minutes;
         }
 
         activity.Speed = speed;

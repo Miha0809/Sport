@@ -6,13 +6,20 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія зображень.
 /// </summary>
-public interface IImageRepository : IDisposable, IExists, ISave
+public interface IImageRepository : ISave
 {
     /// <summary>
     /// Зображення по посиланню.
     /// </summary>
     /// <param name="link">Посилання.</param>
     Task<Image?> GetByLinkAsync(string link);
+
+    /// <summary>
+    /// Добавлення зображення до користувача.
+    /// </summary>
+    /// <param name="images">Зображення.</param>
+    /// <param name="email">Електронна пошта авторизованого користувача.</param>
+    void Create(List<Image> images, string email);
     
     /// <summary>
     /// Змінити данні зображення.
@@ -31,4 +38,11 @@ public interface IImageRepository : IDisposable, IExists, ISave
     /// </summary>
     /// <param name="images">Зображення.</param>
     void RemoveRange(IList<Image> images);
+    
+    /// <summary>
+    /// Чи інсує сутність.
+    /// </summary>
+    /// <param name="link">Адрес зображення.</param>
+    /// <param name="email">Електронна пошта атворизованого користувача.</param>
+    bool IsExists(string link, string email);
 }

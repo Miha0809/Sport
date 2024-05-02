@@ -18,7 +18,7 @@ public interface IImageService
     /// </summary>
     /// <param name="images">Зображення.</param>
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
-    Task<User?> AddAsync(List<Image> images, string email);
+    Task<List<Image>> AddAsync(List<Image> images, string email);
 
     /// <summary>
     /// Редагування зображення.

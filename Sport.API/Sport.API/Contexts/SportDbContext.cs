@@ -41,6 +41,12 @@ public class SportDbContext(DbContextOptions<SportDbContext> options) : Identity
             .HasForeignKey(e => e.ActivityId)
             .IsRequired();
         
+        modelBuilder.Entity<User>()
+            .HasMany(e => e.Images)
+            .WithOne(e => e.User)
+            .HasForeignKey(e => e.UserId)
+            .IsRequired();
+        
         base.OnModelCreating(modelBuilder);
     }
 }

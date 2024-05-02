@@ -57,32 +57,4 @@ public class ActivitySearchRepository(SportDbContext context, IUserSearchReposit
 
         return activity;
     }
-
-    private bool _disposed;
-
-    /// <summary>
-    /// Звільнення ресурсів.
-    /// </summary>
-    /// <param name="disposing">Стан.</param>
-    private void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-        }
-        
-        _disposed = true;
-    }
-
-    /// <summary>
-    /// Звільнення ресурсів.
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }

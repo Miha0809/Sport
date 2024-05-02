@@ -1,10 +1,9 @@
-using Sport.API.Models.DTOs.Response.Image;
-using Sport.API.Models.DTOs.Response.Location;
-
 namespace Sport.API.Profiles;
 
 using AutoMapper;
 
+using Models.DTOs.Response.Location;
+using Models.DTOs.Response.Image;
 using Models;
 using Models.DTOs.Response.Activity;
 using Models.DTOs.Response.User;
@@ -22,8 +21,7 @@ public class AutoMapperProfile : Profile
         CreateMap<User, UserShowPublicDto>().ReverseMap();
         CreateMap<User, UserShowPrivateDto>();
         CreateMap<User, UserUpdateDto>();
-        CreateMap<Image, ImageDto>();
-        CreateMap<ImageDto, Image>();
+        CreateMap<Image, ImageDto>().ReverseMap();
         CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
         CreateMap<Activity, ActivityCreateDto>().ReverseMap();
         CreateMap<Activity, ActivityShowPublicDto>();

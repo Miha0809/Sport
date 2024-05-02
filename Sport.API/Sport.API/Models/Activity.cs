@@ -17,12 +17,12 @@ public class Activity
     /// <summary>
     /// Початок активності.
     /// </summary>
-    public required DateTime Start { get; set; }
+    public required DateTime Start { get; set; } = DateTime.UtcNow;
     
     /// <summary>
     /// Кінець активності.
     /// </summary>
-    public required DateTime End { get; set; }
+    public required DateTime End { get; set; } = DateTime.UtcNow;
     
     /// <summary>
     /// Загальний час активності.
@@ -47,7 +47,7 @@ public class Activity
     /// <summary>
     /// Ідентифікатор автора активності.
     /// </summary>
-    public required string UserId { get; set; }
+    public string? UserId { get; set; }
     
     /// <summary>
     /// Автор активності.

@@ -6,7 +6,7 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія активності.
 /// </summary>
-public interface IActivityRepository : IDisposable, ISave
+public interface IActivityRepository : ISave
 {
     /// <summary>
     /// Створення активності.

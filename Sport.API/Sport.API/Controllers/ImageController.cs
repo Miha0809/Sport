@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Models;
-using Models.DTOs.Response.User;
 using Models.DTOs.Response.Image;
 using Services.Interfaces;
 
@@ -20,9 +19,8 @@ using Services.Interfaces;
 public class ImageController(IImageService imageService, IMapper mapper) : Controller
 {
     /// <summary>
-    /// Всі зображення.
+    /// Всі зображення авторизованого користувача.
     /// </summary>
-    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> Images()
     {
@@ -59,18 +57,17 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
     ///     ]
     /// 
     /// </remarks>
-    /// <param name="images">Картинки.</param>
-    /// <returns></returns>
+    /// <param name="imageCreateDtos">Зображення.</param>
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] List<ImageDto> images)
+    public async Task<IActionResult> Add([FromBody] List<ImageDto> imageCreateDtos)
     {
         try
         {
             var userEmail = User.Identity!.Name!;
-            var imageMapping = mapper.Map<List<ImageDto>, List<Image>>(images);
-            var user = await imageService.AddAsync(imageMapping, userEmail);
+            var imageMapping = mapper.Map<List<ImageDto>, List<Image>>(imageCreateDtos);
+            var images = await imageService.AddAsync(imageMapping, userEmail);
             
-            return Ok(mapper.Map<UserShowPrivateDto>(user));
+            return Ok(mapper.Map<List<Image>, List<ImageDto>>(images));
         }
         catch (Exception exception)
         {
@@ -84,7 +81,6 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
     /// </summary>
     /// <param name="imageDto">Нове зображення.</param>
     /// <param name="oldLink">Адрес старого зображення.</param>
-    /// <returns></returns>
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] ImageDto imageDto, string oldLink)
     {
@@ -107,7 +103,6 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
     /// Видалення зображення.
     /// </summary>
     /// <param name="link">Адрес зображення.</param>
-    /// <returns></returns>
     [HttpDelete]
     public async Task<IActionResult> Remove(string link)
     {

@@ -6,7 +6,7 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія профілю користувача.
 /// </summary>
-public interface IUserRepository : IDisposable, ISave
+public interface IUserRepository : ISave
 {
     /// <summary>
     /// Видалити профіль.

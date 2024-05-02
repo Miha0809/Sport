@@ -10,9 +10,9 @@ using Interfaces;
 /// <summary>
 /// Сервіс зображень.
 /// </summary>
-/// <param name="searchRepository">Репозіторі пошуку.</param>
 /// <param name="imageRepository">Репозіторі зображень.</param>
-public class ImageService(IUserSearchRepository searchRepository, IImageRepository imageRepository) : IImageService, IValidWithRegex
+/// <param name="searchRepository">Репозіторі пошуку.</param>
+public class ImageService(IImageRepository imageRepository, IUserSearchRepository searchRepository) : IImageService, IValidWithRegex
 {
     /// <summary>
     /// Всі зображення авторизованого користувача.
@@ -37,22 +37,23 @@ public class ImageService(IUserSearchRepository searchRepository, IImageReposito
     /// </summary>
     /// <param name="images">Зображення.</param>
     /// <param name="email">Елетронна пошта авторизованого користувача.</param>
-    public async Task<User?> AddAsync(List<Image> images, string email)
+    public async Task<List<Image>> AddAsync(List<Image> images, string email)
     {
         var user = await searchRepository.UserByEmailAsync(email);
-        var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link)).ToList();
+        var validImages = images.Where(image => IsValidCorrectString(image.Link) && !imageRepository.IsExists(image.Link, email)).ToList();
         
         if (user is null || validImages.Count == 0)
         {
-            return null;
+            return null!;
         }
 
-        user.Images!.AddRange(validImages);
+        validImages.ForEach(image => image.UserId = user.Id);
+        validImages.ForEach(image => image.User = user);
+
+        imageRepository.Create(validImages, email);
         imageRepository.Save();
 
-        user = await searchRepository.UserByEmailAsync(email);
-        
-        return user;
+        return validImages;
     }
 
     /// <summary>

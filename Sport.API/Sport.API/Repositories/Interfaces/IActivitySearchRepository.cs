@@ -5,7 +5,7 @@ using Models;
 /// <summary>
 /// Інтерфейс репозіторія пошуку активностей.
 /// </summary>
-public interface IActivitySearchRepository : IDisposable
+public interface IActivitySearchRepository
 {
     /// <summary>
     /// Всі активності.
