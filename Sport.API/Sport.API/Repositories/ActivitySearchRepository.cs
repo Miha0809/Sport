@@ -10,7 +10,8 @@ using Interfaces;
 /// Репозіторі пошуку активності.
 /// </summary>
 /// <param name="context">Контекст БД.</param>
-public class ActivitySearchRepository(SportDbContext context) : IActivitySearchRepository
+/// <param name="userSearchRepository"></param>
+public class ActivitySearchRepository(SportDbContext context, IUserSearchRepository userSearchRepository) : IActivitySearchRepository
 {
     /// <summary>
     /// Всі активності.
@@ -43,7 +44,20 @@ public class ActivitySearchRepository(SportDbContext context) : IActivitySearchR
         
         return activity;
     }
-    
+
+    /// <summary>
+    /// Активність користувача по ідентифіктаору.
+    /// </summary>
+    /// <param name="id">Ідентифікатор.</param>
+    /// <param name="email">Електронна пошта авторизованого користувача.</param>
+    public async Task<Activity?> GetByIdAndUserAsync(int id, string email)
+    {
+        var user = await userSearchRepository.UserByEmailAsync(email);
+        var activity = user?.Activities!.FirstOrDefault(activity1 => activity1.Id.Equals(id));
+
+        return activity;
+    }
+
     private bool _disposed;
 
     /// <summary>

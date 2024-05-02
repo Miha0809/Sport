@@ -23,4 +23,11 @@ public interface IActivitySearchRepository : IDisposable
     /// </summary>
     /// <param name="id">Ідентифікатор активності.</param>
     Task<Activity?> GetByIdAsync(int id);
+
+    /// <summary>
+    /// Активність користувача по ідентифіктаору.
+    /// </summary>
+    /// <param name="id">Ідентифікатор.</param>
+    /// <param name="email">Електронна пошта авторизованого користувача.</param>
+    Task<Activity?> GetByIdAndUserAsync(int id, string email);
 }

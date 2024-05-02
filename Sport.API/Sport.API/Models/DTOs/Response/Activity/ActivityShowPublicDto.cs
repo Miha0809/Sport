@@ -1,6 +1,6 @@
-using Sport.API.Models.DTOs.Response.User;
-
 namespace Sport.API.Models.DTOs.Response.Activity;
+
+using Location;
 
 /// <summary>
 /// DTO активності для публічного оглядання.
@@ -35,7 +35,7 @@ public class ActivityShowPublicDto
     /// <summary>
     /// Тривалість активності.
     /// </summary>
-    public required double Time { get; set; }
+    public required TimeSpan Time { get; set; }
     
     /// <summary>
     /// Тип активності.
@@ -43,7 +43,7 @@ public class ActivityShowPublicDto
     public required string ActivityType { get; set; }
     
     /// <summary>
-    /// Автор активності.
+    /// Історія точний локацій активності.
     /// </summary>
-    public required UserShowPublicDto User { get; set; }
+    public List<LocationDto>? Locations { get; set; }
 }

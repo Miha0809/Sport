@@ -1,3 +1,4 @@
+
 namespace Sport.API.Controllers;
 
 using AutoMapper;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Models;
 using Models.DTOs.Response.Activity;
+using Models.DTOs.Response.Location;
 using Services.Interfaces;
 
 /// <summary>
@@ -48,6 +50,28 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         }
     }
 
+    /// <summary>
+    /// Редагування активності.
+    /// </summary>
+    /// <param name="activityUpdateDto"></param>
+    [HttpPatch]
+    public async Task<IActionResult> Update([FromBody] ActivityUpdateDto activityUpdateDto)
+    {
+        try
+        {
+            var userEmail = User.Identity!.Name!;
+            var locationMapping = mapper.Map<LocationDto, Location>(activityUpdateDto.Location);
+            var activity = await activityService.UpdateAsync(activityUpdateDto, locationMapping, userEmail);
+
+            return Ok(mapper.Map<ActivityShowPublicDto>(activity));
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.Message);
+            throw;
+        }
+    }
+    
     /// <summary>
     /// Всі активності.
     /// </summary>

@@ -3,10 +3,7 @@ riderModule.iml
 /_ReSharper.Caches/
 Migrations/
 
-../.idea/.idea.Sport.API/.idea/.gitignore
-../.idea/.idea.Sport.API/.idea/encodings.xml
-../.idea/.idea.Sport.API/.idea/indexLayout.xml
-../.idea/.idea.Sport.API/.idea/vcs.xml
+../.idea/
 
 
 bin/*

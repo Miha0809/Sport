@@ -25,6 +25,11 @@ public class Activity
     public required DateTime End { get; set; }
     
     /// <summary>
+    /// Загальний час активності.
+    /// </summary>
+    public TimeSpan Time { get; set; }
+    
+    /// <summary>
     /// Дистанція у метрах.
     /// </summary>
     public required double Distance { get; set; }
@@ -32,7 +37,7 @@ public class Activity
     /// <summary>
     /// Поточка швидкість.
     /// </summary>
-    public required double Speed { get; set; }
+    public double Speed { get; set; }
     
     /// <summary>
     /// Тип активності.
@@ -50,5 +55,8 @@ public class Activity
     [ForeignKey("UserId")]
     public virtual required User User { get; set; }
     
-    // TODO: Locations, comments, ?likes
+    /// <summary>
+    /// Історія точний локацій активності.
+    /// </summary>
+    public virtual required List<Location> Locations { get; set; }
 }

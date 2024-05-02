@@ -1,4 +1,5 @@
 using Sport.API.Models.DTOs.Response.Image;
+using Sport.API.Models.DTOs.Response.Location;
 
 namespace Sport.API.Profiles;
 
@@ -26,5 +27,7 @@ public class AutoMapperProfile : Profile
         CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
         CreateMap<Activity, ActivityCreateDto>().ReverseMap();
         CreateMap<Activity, ActivityShowPublicDto>();
+        CreateMap<Location, LocationDto>().ReverseMap();
+        CreateMap<Activity, ActivityUpdateDto>();
     }
 }
