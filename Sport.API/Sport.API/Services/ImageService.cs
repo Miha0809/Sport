@@ -56,14 +56,14 @@ public class ImageService(
     /// </summary>
     /// <param name="image">Зображення.</param>
     /// <param name="oldLink">Старий адрес зображженя.</param>
-    public async Task<Image?> UpdateAsync(Image image, string oldLink)
+    public async Task<Image> UpdateAsync(Image image, string oldLink)
     {
         var oldImage = await imageSearchRepository.GetByLinkAsync(oldLink);
         var isValidLink = IsValidCorrectString(image.Link);
 
         if (oldImage is null || !isValidLink)
         {
-            return null;
+            throw new ArgumentNullException(nameof(oldImage), "Image is not correct.");
         }
 
         oldImage.Link = image.Link;
@@ -82,14 +82,14 @@ public class ImageService(
     {
         if (string.IsNullOrWhiteSpace(link))
         {
-            return null;
+            throw new InvalidDataException($"{nameof(link)} is empty or white space.");
         }
 
         var image = await imageSearchRepository.GetByLinkAsync(link);
 
         if (image == null)
         {
-            return null;
+            throw new ArgumentNullException(nameof(image), "Image is null");
         }
 
         imageRepository.Remove(image);

@@ -40,7 +40,7 @@ public class ProfileService(
         
         if (user is null || userUpdateDto is null || (userUpdateDto.PhoneNumber is null || !IsValidCorrectString(userUpdateDto.PhoneNumber!)))
         {
-            return null;
+            throw new ArgumentNullException(nameof(userUpdateDto), "Data is null");
         }
 
         user.FirstName = userUpdateDto.FirstName;
@@ -63,7 +63,7 @@ public class ProfileService(
         
         if (user is null)
         {
-            return null;
+            throw new ArgumentNullException(nameof(user), "User is null");
         }
 
         if (user.Images!.Count > 0)

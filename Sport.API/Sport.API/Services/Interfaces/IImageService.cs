@@ -26,7 +26,7 @@ public interface IImageService : IValidWithRegex
     /// </summary>
     /// <param name="image">Зображення.</param>
     /// <param name="oldLink">Старий адрес зображженя.</param>
-    Task<Image?> UpdateAsync(Image image, string oldLink);
+    Task<Image> UpdateAsync(Image image, string oldLink);
 
     /// <summary>
     /// Видалення зображженя.

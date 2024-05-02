@@ -19,12 +19,13 @@ public class ActivityService(
     IActivitySearchRepository activitySearchRepository,
     IUserSearchRepository userSearchRepository) : IActivityService
 {
+
     /// <summary>
     /// Створення активності.
     /// </summary>
     /// <param name="activity">Активність.</param>
     /// <param name="email">Електронна пошта користувача.</param>
-    /// <exception cref="NullReferenceException">Активності не існує з відповідним ідентифікатором.</exception>
+    /// <exception cref="ArgumentNullException">Активності не існує з відповідним ідентифікатором.</exception>
     public async Task<Activity> CreateAsync(Activity activity, string email)
     {
         var user = await userSearchRepository.UserByEmailAsync(email);
@@ -58,6 +59,7 @@ public class ActivityService(
     /// <param name="activityUpdateDto">Активність</param>
     /// <param name="location">Поточна локація.</param>
     /// <param name="email">Електронна пошта авторизованого користувача.</param>
+    /// <exception cref="ArgumentNullException">Активності не існує.</exception>
     public async Task<Activity> UpdateAsync(ActivityUpdateDto activityUpdateDto, Location location, string email)
     {
         var activity = await activitySearchRepository.GetByIdAndUserAsync(activityUpdateDto.Id, email);
@@ -129,7 +131,7 @@ public class ActivityService(
     /// Активність по ідентифікатору.
     /// </summary>
     /// <param name="id">Ідентифікатор активності.</param>
-    /// <exception cref="NullReferenceException">Активності не існує з відповідним ідентифікатором.</exception>
+    /// <exception cref="ArgumentNullException">Активності не існує з відповідним ідентифікатором.</exception>
     public async Task<Activity> GetByIdAsync(int id)
     {
         var activity = await activitySearchRepository.GetByIdAsync(id);

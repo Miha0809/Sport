@@ -21,7 +21,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     {
         if (!IsValidCorrectString(email))
         {
-            return null;
+            throw new ArgumentNullException(nameof(email), "Emails is not valid.");
         }
 
         var user = await userSearchRepository.UserByEmailAsync(email);
@@ -37,7 +37,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     {
         if (!IsValidCorrectString(request.Email))
         {
-            return null;
+            throw new ArgumentNullException(nameof(request.Email), "Emails is not valid.");
         }
         
         var user = await userSearchRepository.UserByEmailAsync(request.Email);
