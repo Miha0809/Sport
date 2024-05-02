@@ -1,3 +1,5 @@
+using Sport.API.Models.DTOs.Response.Activity;
+
 namespace Sport.API.Services.Interfaces;
 
 using Models;
@@ -14,6 +16,21 @@ public interface IActivityService
     /// <param name="email">Електронна пошта користувача.</param>
     Task<Activity> CreateAsync(Activity activity, string email);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="activityUpdateDto"></param>
+    /// <param name="location"></param>
+    /// <param name="email"></param>
+    Task<Activity> UpdateAsync(ActivityUpdateDto activityUpdateDto, Location location, string email);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="activity"></param>
+    /// <returns></returns>
+    Activity CalculateMetrics(Activity activity);
+    
     /// <summary>
     /// Всі активності.
     /// </summary>
