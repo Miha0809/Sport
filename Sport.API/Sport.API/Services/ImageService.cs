@@ -1,5 +1,3 @@
-using Sport.API.Interfaces.Services;
-
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
@@ -16,7 +14,7 @@ using Interfaces;
 public class ImageService(
     IImageRepository imageRepository,
     IImageSearchRepository imageSearchRepository,
-    IUserSearchRepository userSearchRepository) : IImageService, IValidWithRegex
+    IUserSearchRepository userSearchRepository) : IImageService
 {
     /// <summary>
     /// Всі зображення авторизованого користувача.

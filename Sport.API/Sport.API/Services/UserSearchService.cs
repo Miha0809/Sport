@@ -1,9 +1,7 @@
-
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
 
-using Sport.API.Interfaces.Services;
 using Repositories.Interfaces;
 using Models.DTOs.Requests.Search;
 using Interfaces;
@@ -13,7 +11,7 @@ using Models;
 /// Сервіс пошуку.
 /// </summary>
 /// <param name="userSearchRepository">Репозіторі пошуку.</param>
-public class UserSearchService(IUserSearchRepository userSearchRepository) : IUserSearchService, IValidWithRegex
+public class UserSearchService(IUserSearchRepository userSearchRepository) : IUserSearchService
 {
     /// <summary>
     /// Отримати дані авторизованого користувача.

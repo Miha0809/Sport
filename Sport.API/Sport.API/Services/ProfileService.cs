@@ -1,5 +1,7 @@
 namespace Sport.API.Services;
 
+using System.Text.RegularExpressions;
+
 using Repositories.Interfaces;
 using Models.DTOs.Response.User;
 using Models;
@@ -36,13 +38,14 @@ public class ProfileService(
     {
         var user = await searchRepository.UserByEmailAsync(email);
         
-        if (user is null || userUpdateDto is null)
+        if (user is null || userUpdateDto is null || (userUpdateDto.PhoneNumber is null || !IsValidCorrectString(userUpdateDto.PhoneNumber!)))
         {
             return null;
         }
 
         user.FirstName = userUpdateDto.FirstName;
         user.LastName = userUpdateDto.LastName;
+        user.PhoneNumber = userUpdateDto.PhoneNumber;
 
         userRepository.Update(user);
         userRepository.Save();
@@ -74,5 +77,14 @@ public class ProfileService(
         var isExistsUser = await searchRepository.UserByEmailAsync(email) is null;
         
         return isExistsUser;
+    }
+
+    /// <summary>
+    /// Перевіряє на валідність номер телефону.
+    /// </summary>
+    /// <param name="number">Номер телефону.</param>
+    public bool IsValidCorrectString(string number)
+    {
+        return Regex.IsMatch(number, @"^\+?\d*$");
     }
 }

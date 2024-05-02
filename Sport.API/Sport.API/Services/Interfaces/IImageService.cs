@@ -1,11 +1,12 @@
 namespace Sport.API.Services.Interfaces;
 
+using Sport.API.Interfaces.Services;
 using Models;
 
 /// <summary>
 /// Інтерфейс сервісу зображень.
 /// </summary>
-public interface IImageService
+public interface IImageService : IValidWithRegex
 {
     /// <summary>
     /// Всі зображення авторизованого користувача.
