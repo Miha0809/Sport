@@ -17,7 +17,7 @@ using Services.Interfaces;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class SearchController(IUserSearchService userSearchService, IMapper mapper) : Controller
+public class UserSearchController(IUserSearchService userSearchService, IMapper mapper) : Controller
 {
     /// <summary>
     /// Пошук користувача по електронній пошті.
