@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "Sport",
         Version = "v1",
-        Description = "An API to sport for Collage",
+        Description = "Проект 'Sport' - це дипломна робота для ВСП 'Надвірнянський фаховий коледж НТУ'",
     });
     
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
