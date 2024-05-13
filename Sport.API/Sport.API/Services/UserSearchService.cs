@@ -1,11 +1,9 @@
 namespace Sport.API.Services;
 
 using System.Text.RegularExpressions;
-
-using Repositories.Interfaces;
-using Models.DTOs.Requests.Search;
 using Interfaces;
 using Models;
+using Repositories.Interfaces;
 
 /// <summary>
 /// Сервіс пошуку.
@@ -17,7 +15,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     /// Отримати дані авторизованого користувача.
     /// </summary>
     /// <param name="email">Електронна пошта авторизованого користувача.</param>
-    public async Task<User?> UserByEmailAsync(string email)
+    public async Task<User> UserByEmailAsync(string email)
     {
         if (!IsValidCorrectString(email))
         {
@@ -26,23 +24,7 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
 
         var user = await userSearchRepository.UserByEmailAsync(email);
 
-        return user;
-    }
-
-    /// <summary>
-    /// Пошук користувача по електронній пошті.
-    /// </summary>
-    /// <param name="request">Запит</param>
-    public async Task<User?> UserByEmailAsync(SearchByEmailRequest request)
-    {
-        if (!IsValidCorrectString(request.Email))
-        {
-            throw new ArgumentNullException(nameof(request.Email), "Emails is not valid.");
-        }
-        
-        var user = await userSearchRepository.UserByEmailAsync(request.Email);
-
-        return user;
+        return user!;
     }
 
     /// <summary>
@@ -53,18 +35,23 @@ public class UserSearchService(IUserSearchRepository userSearchRepository) : IUs
     {
         return Regex.IsMatch(email, @"^\w+@\w{2,}\.\w{2,}$");
     }
-    
+
     /// <summary>
-    /// Пошук користувача по імені та/або фамілією.
+    /// Пошук користувача по імені та/або фамілії.
     /// </summary>
-    /// <param name="user">Інформація про авторизованого користувача.</param>
-    /// <param name="request">Запит</param>
-    public async Task<List<User>> UsersByFullNameAsync(User user, SearchByFullNameRequest request)
+    /// <param name="firstName">Ім'я користувача.</param>
+    /// <param name="lastName">Фамілія користувача.</param>
+    public async Task<List<User>> UsersByFullNameAsync(string firstName, string lastName)
     {
-        var fullName = request.FullName.Split(' ');
-        var firstName = fullName[0];
-        var lastName = fullName[1];
-        var users = await userSearchRepository.UsersByFullNameAsync(firstName, lastName, user.Email!);
+        if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+        {
+            throw new ArgumentNullException(
+                $"{nameof(firstName)} | {nameof(lastName)}",
+                "firstName or lastName is null"
+            );
+        }
+
+        var users = await userSearchRepository.UsersByFullNameAsync(firstName!, lastName!);
 
         return users;
     }

@@ -3,11 +3,11 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Sport.API.Contexts;
 using Sport.API.Models;
 using Sport.API.Profiles;
 using Sport.API.Repositories;
 using Sport.API.Repositories.Interfaces;
-using Sport.API.Contexts;
 using Sport.API.Services;
 using Sport.API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
@@ -19,35 +19,47 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
+    options.AddSecurityDefinition(
+        "oauth2",
+        new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey
+        }
+    );
     options.OperationFilter<SecurityRequirementsOperationFilter>();
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Sport",
-        Version = "v1",
-        Description = "Проект 'Sport' - це дипломна робота для ВСП 'Надвірнянський фаховий коледж НТУ'",
-    });
-    
+    options.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
+        {
+            Title = "Sport",
+            Version = "v1",
+            Description =
+                "Проект 'Sport' - це дипломна робота для ВСП 'Надвірнянський фаховий коледж НТУ'",
+        }
+    );
+
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     options.IncludeXmlComments(xmlPath);
 });
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;
-});;
+builder
+    .Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+;
 builder.Services.AddDbContext<SportDbContext>(options =>
 {
-    options.UseLazyLoadingProxies()
+    options
+        .UseLazyLoadingProxies()
         .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host (wajimew118@kravify.com) Localhost
 });
-builder.Services.AddIdentityApiEndpoints<User>(options =>
+builder
+    .Services.AddIdentityApiEndpoints<User>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.User.RequireUniqueEmail = true;

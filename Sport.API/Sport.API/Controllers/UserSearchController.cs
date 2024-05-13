@@ -3,9 +3,7 @@ namespace Sport.API.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using Models;
-using Models.DTOs.Requests.Search;
 using Models.DTOs.Response.User;
 using Services.Interfaces;
 
@@ -22,14 +20,14 @@ public class UserSearchController(IUserSearchService userSearchService, IMapper 
     /// <summary>
     /// Пошук користувача по електронній пошті.
     /// </summary>
-    /// <param name="request">Електронна пошта.</param>
-    [HttpPost("email")]
-    public async Task<IActionResult> ByEmail([FromBody] SearchByEmailRequest request)
+    /// <param name="email">Електронна пошта.</param>
+    [HttpGet("{email}")]
+    public async Task<IActionResult> ByEmail(string email)
     {
         try
         {
-            var user = await userSearchService.UserByEmailAsync(request);
-            
+            var user = await userSearchService.UserByEmailAsync(email);
+
             return Ok(mapper.Map<UserShowPublicDto>(user));
         }
         catch (Exception exception)
@@ -42,16 +40,17 @@ public class UserSearchController(IUserSearchService userSearchService, IMapper 
     /// <summary>
     /// Пошук користувача по імені та/або фамілії.
     /// </summary>
-    /// <param name="request">Ім'я та/або прізвище</param>
-    [HttpPost("full_name")]
-    public async Task<IActionResult> ByFullName([FromBody] SearchByFullNameRequest request)
+    /// <param name="firstName">Ім'я</param>
+    /// <param name="lastName">Ім'я</param>
+    [HttpGet("{firstName}/{lastName}")]
+    public async Task<IActionResult> ByFullName(string firstName, string lastName)
     {
         try
         {
             var userEmail = User.Identity!.Name!;
             var user = await userSearchService.UserByEmailAsync(userEmail);
-            var users = await userSearchService.UsersByFullNameAsync(user!, request);
-            
+            var users = await userSearchService.UsersByFullNameAsync(firstName, lastName);
+
             return Ok(mapper.Map<List<User>, List<UserShowPublicDto>>(users));
         }
         catch (Exception exception)

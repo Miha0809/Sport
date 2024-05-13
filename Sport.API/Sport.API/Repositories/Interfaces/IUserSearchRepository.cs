@@ -12,12 +12,11 @@ public interface IUserSearchRepository
     /// </summary>
     /// <param name="email">Електронна пошта.</param>
     Task<User?> UserByEmailAsync(string email);
-    
+
     /// <summary>
     /// Користувача по імені та/або фамілії.
     /// </summary>
-    /// <param name="firstName">Ім'я.</param>
-    /// <param name="lastName">Фамілія.</param>
-    /// <param name="currentUserEmail">Електронна пошта поточного користувача.</param>
-    Task<List<User>> UsersByFullNameAsync(string firstName, string lastName, string currentUserEmail);
+    /// <param name="firstName">Ім'я користувача.</param>
+    /// <param name="lastName">Фамілія користувача.</param>
+    Task<List<User>> UsersByFullNameAsync(string firstName, string lastName);
 }

@@ -1,8 +1,7 @@
 namespace Sport.API.Services.Interfaces;
 
-using Sport.API.Interfaces.Services;
-using Models.DTOs.Requests.Search;
 using Models;
+using Sport.API.Interfaces.Services;
 
 /// <summary>
 /// Інтерфейс сервісу пошуку.
@@ -13,18 +12,12 @@ public interface IUserSearchService : IValidWithRegex
     /// Отримати дані авторизованого користувача.
     /// </summary>
     /// <param name="email">Електронна пошта авторизованого користувача.</param>
-    Task<User?> UserByEmailAsync(string email);
-    
-    /// <summary>
-    /// Пошук користувача по електронній пошті.
-    /// </summary>
-    /// <param name="request">Запит пошуку.</param>
-    Task<User?> UserByEmailAsync(SearchByEmailRequest request);
-    
+    Task<User> UserByEmailAsync(string email);
+
     /// <summary>
     /// Пошук користувача по імені та/або фамілії.
     /// </summary>
-    /// <param name="user">Авторизований користувач.</param>
-    /// <param name="request">Запит пошуку.</param>
-    Task<List<User>> UsersByFullNameAsync(User user, SearchByFullNameRequest request);
+    /// <param name="firstName">Ім'я користувача.</param>
+    /// <param name="lastName">Фамілія користувача.</param>
+    Task<List<User>> UsersByFullNameAsync(string firstName, string lastName);
 }
