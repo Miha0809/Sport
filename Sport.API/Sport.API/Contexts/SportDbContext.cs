@@ -2,14 +2,14 @@ namespace Sport.API.Contexts;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
 using Models;
 
 /// <summary>
 /// Контекст БД.
 /// </summary>
 /// <param name="options">Опція.</param>
-public class SportDbContext(DbContextOptions<SportDbContext> options) : IdentityDbContext<User>(options)
+public class SportDbContext(DbContextOptions<SportDbContext> options)
+    : IdentityDbContext<User>(options)
 {
     /// <summary>
     /// Таблиця зображень.
@@ -29,19 +29,22 @@ public class SportDbContext(DbContextOptions<SportDbContext> options) : Identity
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
+        modelBuilder
+            .Entity<User>()
             .HasMany(e => e.Activities)
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId)
             .IsRequired();
 
-        modelBuilder.Entity<User>()
+        modelBuilder
+            .Entity<User>()
             .HasMany(e => e.Images)
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId)
             .IsRequired();
 
-        modelBuilder.Entity<Activity>()
+        modelBuilder
+            .Entity<Activity>()
             .HasMany(e => e.Locations)
             .WithOne(e => e.Activity)
             .HasForeignKey(e => e.ActivityId)

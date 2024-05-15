@@ -3,7 +3,6 @@ namespace Sport.API.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using Models;
 using Models.DTOs.Response.Activity;
 using Models.DTOs.Response.Location;
@@ -59,8 +58,14 @@ public class ActivityController(IActivityService activityService, IMapper mapper
         try
         {
             var userEmail = User.Identity!.Name!;
-            var locationMapping = mapper.Map<LocationUpdateDto, Location>(activityUpdateDto.Location);
-            var activity = await activityService.UpdateAsync(activityUpdateDto, locationMapping, userEmail);
+            var locationMapping = mapper.Map<LocationUpdateDto, Location>(
+                activityUpdateDto.Location
+            );
+            var activity = await activityService.UpdateAsync(
+                activityUpdateDto,
+                locationMapping,
+                userEmail
+            );
 
             return Ok(mapper.Map<ActivityShowPublicDto>(activity));
         }
