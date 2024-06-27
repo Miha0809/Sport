@@ -56,7 +56,7 @@ builder.Services.AddDbContext<SportDbContext>(options =>
 {
     options
         .UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Localhost")); // Host (wajimew118@kravify.com) Localhost
+        .UseNpgsql(builder.Configuration.GetConnectionString("Host")); // Host (yojesep287@hutov.com !wajimew118@kravify.com!Q) Localhost
 });
 builder
     .Services.AddIdentityApiEndpoints<User>(options =>
@@ -86,11 +86,8 @@ builder.Services.AddScoped<IActivityService, ActivityService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapIdentityApi<User>();
 app.UseHttpsRedirection();

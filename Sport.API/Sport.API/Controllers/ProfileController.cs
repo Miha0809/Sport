@@ -28,7 +28,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
         {
             var userEmail = User.Identity!.Name!;
             var user = await profileService.ProfileAsync(userEmail);
-            
+
             return Ok(mapper.Map<UserShowPrivateDto>(user));
         }
         catch (Exception exception)
@@ -50,7 +50,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
         {
             var userEmail = User.Identity!.Name!;
             var userUpdate = await profileService.UpdateAsync(userDto, userEmail);
-            
+
             return Ok(mapper.Map<UserShowPrivateDto>(userUpdate));
         }
         catch (Exception exception)
@@ -71,7 +71,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
         {
             var userEmail = User.Identity!.Name!;
             await profileService.RemoveAsync(userEmail);
-            
+
             return RedirectToAction("Logout");
         }
         catch (Exception exception)
@@ -89,7 +89,7 @@ public class ProfileController(IProfileService profileService, IMapper mapper) :
     public IActionResult Logout()
     {
         HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
-        
+
         return Ok(StatusCodes.Status200OK);
     }
 }
