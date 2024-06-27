@@ -28,7 +28,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
         {
             var userEmail = User.Identity!.Name!;
             var images = await imageService.GetImagesAsync(userEmail);
-            
+
             return Ok(mapper.Map<List<ImageDto>>(images));
         }
         catch (Exception exception)
@@ -37,7 +37,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             throw;
         }
     }
-    
+
     /// <summary>
     /// Добавлення зображення.
     /// </summary>
@@ -66,7 +66,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             var userEmail = User.Identity!.Name!;
             var imageMapping = mapper.Map<List<ImageDto>, List<Image>>(imageCreateDtos);
             var images = await imageService.AddAsync(imageMapping, userEmail);
-            
+
             return Ok(mapper.Map<List<Image>, List<ImageDto>>(images));
         }
         catch (Exception exception)
@@ -75,7 +75,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             throw;
         }
     }
-    
+
     /// <summary>
     /// Редагування адресу зображення.
     /// </summary>
@@ -89,7 +89,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
             var imageMapping = mapper.Map<Image>(imageDto);
             var image = await imageService.UpdateAsync(imageMapping, oldLink);
             var imageMappingToDto = mapper.Map<ImageDto>(image);
-            
+
             return Ok(imageMappingToDto);
         }
         catch (Exception exception)
@@ -109,7 +109,7 @@ public class ImageController(IImageService imageService, IMapper mapper) : Contr
         try
         {
             var isRemove = await imageService.RemoveAsync(link);
-            
+
             return Ok(isRemove);
         }
         catch (Exception exception)
